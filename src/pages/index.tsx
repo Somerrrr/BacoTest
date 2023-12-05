@@ -30,10 +30,12 @@ export default function Home() {
   //     console.log(err);
   //   }
   // };
-
   const uploadImages = async () => {
     const data = new FormData();
-    data.append("image", image?.slice(23) as string);
+    data.append(
+      "image",
+      "R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+    );
     // data.append("album", "0mn4os7");
     // console.log("uploading", imgur);
     try {
