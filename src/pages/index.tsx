@@ -33,7 +33,7 @@ export default function Home() {
 
   const uploadImages = async () => {
     const data = new FormData();
-    data.append("image", image as string);
+    data.append("image", image?.slice(23) as string);
     // data.append("album", "0mn4os7");
     // console.log("uploading", imgur);
     try {
