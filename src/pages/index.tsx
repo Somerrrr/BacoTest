@@ -1,86 +1,93 @@
-import axios from "axios";
-import React, { useEffect, useRef, useState } from "react";
+import { useRouter } from "next/router";
+import React, { useState } from "react";
+import LoginStatus from "@/components/LoginPage/LoginStatus";
+import RegisterStatus from "@/components/LoginPage/Register";
+import { BsDot } from "react-icons/bs";
 
-export default function Home() {
-  const imgInputRef = useRef<HTMLInputElement>(null);
-  const [image, setImage] = useState<string | null>(null);
+export const StatusType = {
+  LOGIN: "login",
+  REGISTER: "register",
+  RECOVER: "recover",
+} as const;
 
-  const accessCode = "e11a422b6eca5500f01f94ce0ba11f3fcf2dbe18";
-  const clientId = "a062881f67af8b9";
-  const imgur = axios.create({
-    headers: {
-      Authorization: `Bearer ${accessCode}`,
-      // Authorization: `Client-ID ${clientId}`,
-    },
-  });
-  const handleImageChange = async (e: any) => {
-    const imageFile = e.target.files[0];
-    const reader = new FileReader();
-    reader.onload = async () => {
-      const base64Image = reader.result;
-      setImage(base64Image as string);
-    };
-    reader.readAsDataURL(imageFile);
+export type PageStatus = (typeof StatusType)[keyof typeof StatusType];
+
+export default function Login() {
+  const [status, setStatus] = useState<PageStatus>(StatusType.LOGIN);
+  const router = useRouter();
+  const goPage = (page: string) => {
+    router.push(page);
   };
-  // const getImages = async () => {
-  //   try {
-  //     const res = await imgur.get("https://api.imgur.com/3/image/thTPO1t");
-  //     console.log(res);
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // };
-  const uploadImages = async () => {
-    const data = new FormData();
-    data.append(
-      "image",
-      "R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
-    );
-    // data.append("album", "0mn4os7");
-    // console.log("uploading", imgur);
-    try {
-      const res = await imgur.post("https://api.imgur.com/3/upload", data);
-      console.log(res.data);
-    } catch (err) {
-      console.error(err);
+  const statusPage = () => {
+    switch (status) {
+      case StatusType.LOGIN:
+        return <LoginStatus />;
+      case StatusType.REGISTER:
+        return <RegisterStatus />;
+      case StatusType.RECOVER:
+        return <div>Recover</div>;
+      default:
+        return <LoginStatus />;
+    }
+  };
+  const statusText = () => {
+    switch (status) {
+      case StatusType.LOGIN:
+        return (
+          <div className="text-xs font-extralight leading-normal flex items-center justify-center">
+            <a
+              className="cursor-pointer hover:text-washi/70 hover:underline underline-offset-2"
+              onClick={() => setStatus(StatusType.REGISTER)}
+            >
+              Create accont
+            </a>
+            <BsDot />
+            <a
+              className="cursor-pointer hover:text-washi/70 hover:underline underline-offset-2"
+              onClick={() => setStatus(StatusType.RECOVER)}
+            >
+              Forgot password
+            </a>
+          </div>
+        );
+      case StatusType.REGISTER:
+        return (
+          <div className="text-xs font-extralight leading-normal flex items-center justify-center">
+            <a>Have an account?</a>
+            <a
+              className="cursor-pointer hover:text-washi/70 hover:underline underline-offset-2 whitespace-pre-wrap"
+              onClick={() => setStatus(StatusType.LOGIN)}
+            >
+              {" "}
+              Login
+            </a>
+          </div>
+        );
+      case StatusType.RECOVER:
+        return (
+          <div className="text-xs font-extralight leading-normal flex items-center justify-center">
+            <a>Remember your password? </a>
+            <a
+              className="cursor-pointer hover:text-washi/70 hover:underline underline-offset-2 whitespace-pre-wrap"
+              onClick={() => setStatus(StatusType.LOGIN)}
+            >
+              {" "}
+              Back to login
+            </a>
+          </div>
+        );
+      default:
+        return <></>;
     }
   };
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-12 bg-dampWashi">
-      <div
-        className="z-10 max-w-5xl w-full items-center justify-center font-mono text-sm lg:flex hover:cursor-pointer"
-        onClick={() => uploadImages()}
-      >
-        <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
-          Test
-        </p>
+    <main className="flex min-h-screen bg-bakoB">
+      <div className="m-auto">
+        <div className="justify-center text text-center">Bako</div>
+        {statusPage()}
+        {statusText()}
       </div>
-      <form
-        className="flex h-[500px] w-full cursor-pointer items-center justify-center bg-off"
-        onClick={() => imgInputRef.current?.click()}
-      >
-        <input
-          className=".input-img"
-          ref={imgInputRef}
-          type="file"
-          onChange={handleImageChange}
-          accept="image/*"
-          placeholder="ADD IMAGE"
-          hidden
-        />
-        {image ? (
-          <img
-            className="max-h-full max-w-full object-cover"
-            src={image}
-            alt="preview"
-          />
-        ) : (
-          <a className="text-xl uppercase tracking-widest text-washi">
-            add image
-          </a>
-        )}
-      </form>
     </main>
   );
 }

@@ -23,9 +23,8 @@ const config: Config = {
       },
       colors: {
         ...colors,
-        ink: "#141414",
-        washi: "#F9F9F0",
-        dampWashi: "#EBEBE1",
+        bakoB: "#0F0F0F",
+        bakoW: "#EFEFEF",
         off: "#3B3B38",
         signBlack: "#3F3F3F",
         error: "#FF6928",

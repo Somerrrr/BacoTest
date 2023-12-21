@@ -1,3 +1,4 @@
+import BaseLayout from "@/components/Layout/BasicLayout";
 import "@/styles/globals.css";
 import type { AppProps } from "next/app";
 import Head from "next/head";
@@ -43,13 +44,13 @@ export default function App({ Component, pageProps }: AppProps) {
   return (
     <>
       <Head>
-        <title>YOHAKU Marketplace</title>
+        <title>BAKO Marketplace</title>
       </Head>
       {/* <ChakraProvider theme={theme}> */}
       {/* <MarketProvider> */}
-      {/* <BaseLayout> */}
-      <Component {...pageProps} />
-      {/* </BaseLayout> */}
+      <BaseLayout>
+        <Component {...pageProps} />
+      </BaseLayout>
       {/* </MarketProvider> */}
       {/* </ChakraProvider> */}
     </>
