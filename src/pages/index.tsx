@@ -84,7 +84,7 @@ export default function Login() {
   };
 
   return (
-    <main className="flex min-h-screen bg-bakoB">
+    <main className="flex min-h-screen bg-bakoB text-bakoW">
       <div className="m-auto">
         <div className="w-full flex justify-center px-5">
           <Image src={logo} alt="Bako" className="w-full" />

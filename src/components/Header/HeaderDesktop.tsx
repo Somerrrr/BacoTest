@@ -14,7 +14,7 @@ export default function Desktop({ goPage, urlPath }: Props) {
       <div className="flex items-center justify-between gap-16">
         <button
           onClick={() => goPage("/about")}
-          className={`text-bakoB text-sm tracking-wider ${
+          className={`text-sm tracking-wider ${
             urlPath === "/about" && "underline underline-offset-2"
           }`}
           aria-label="About Us"
@@ -24,7 +24,7 @@ export default function Desktop({ goPage, urlPath }: Props) {
 
         <button
           onClick={() => goPage("/collection")}
-          className={`text-bakoB text-sm tracking-wider ${
+          className={`text-sm tracking-wider ${
             urlPath === "/collection" && "underline underline-offset-2"
           }`}
           aria-label="Our Collection"
@@ -35,7 +35,12 @@ export default function Desktop({ goPage, urlPath }: Props) {
       <div className="absolute flex left-1/2 -translate-x-1/2">
         <Image src={logo} alt="Bako" className="w-full" />
       </div>
-      <FaUser color="black" size="24px" />
+      <FaUser
+        color="black"
+        size="24px"
+        onClick={() => goPage("/profile")}
+        className="cursor-pointer"
+      />
     </header>
   );
 }

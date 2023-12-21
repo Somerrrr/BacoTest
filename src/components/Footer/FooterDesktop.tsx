@@ -20,7 +20,7 @@ export default function Desktop({ goPage, urlPath }: Props) {
     "Terms of Service",
   ];
   return (
-    <footer className="bg-bakoW text-bakoB flex flex-col gap-16 w-full px-14 py-16 border-bakoB/20 border-t">
+    <footer className="bg-bakoW flex flex-col gap-16 w-full px-14 py-16 border-bakoB/20 border-t">
       <div className="flex justify-between">
         <div className="flex-col flex gap-6 text-sm">
           {footerPath.map((path) => (

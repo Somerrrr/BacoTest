@@ -42,7 +42,7 @@ export default function BaseLayout({
     <>
       {/* {isLoading && <LoadingPage />} */}
       {urlPath !== "/" && <Header urlPath={urlPath} />}
-      <main className="max-w-[100vw] min-h-[100vh]">{children}</main>
+      <main className="max-w-[100vw] min-h-[60vh]">{children}</main>
       {urlPath !== "/" && <Footer urlPath={urlPath} />}
     </>
   );

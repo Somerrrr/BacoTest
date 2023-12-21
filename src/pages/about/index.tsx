@@ -4,8 +4,8 @@ import React, { useEffect, useRef, useState } from "react";
 
 export default function About() {
   return (
-    <div className="flex min-h-screen flex-col items-center bg-bakoW gap-16 py-16 text-bakoB">
-      <div className=" text-bakoB h-full w-3/4 justify-center">
+    <div className="flex min-h-screen flex-col items-center bg-bakoW gap-16 py-16 ">
+      <div className=" h-full w-3/4 justify-center">
         <div
           style={{
             padding: "56.25% 0 0 0",
