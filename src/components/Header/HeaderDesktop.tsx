@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import { FaUser } from "react-icons/fa6";
+import logo from "@/assets/LOGO_B.svg";
 
 interface Props {
   goPage: (page: string) => void;
@@ -8,16 +9,11 @@ interface Props {
 }
 
 export default function Desktop({ goPage, urlPath }: Props) {
-  const [isActive, setIsActive] = useState(false);
-
-  const handleClick = () => {
-    setIsActive(!isActive);
-  };
   return (
-    <header className="bg-zinc-100 relative self-stretch h-[104px] flex w-full items-center justify-between px-14 border-b-stone-950 border-b-opacity-20 border-b border-solid">
+    <header className="bg-bakoW relative self-stretch h-[104px] flex w-full items-center justify-between px-14 border-bakoB/20 border-b">
       <div className="flex items-center justify-between gap-16">
         <button
-          onClick={handleClick}
+          onClick={() => goPage("/about")}
           className={`text-bakoB text-sm tracking-wider ${
             urlPath === "/about" && "underline underline-offset-2"
           }`}
@@ -27,7 +23,7 @@ export default function Desktop({ goPage, urlPath }: Props) {
         </button>
 
         <button
-          onClick={handleClick}
+          onClick={() => goPage("/collection")}
           className={`text-bakoB text-sm tracking-wider ${
             urlPath === "/collection" && "underline underline-offset-2"
           }`}
@@ -37,9 +33,7 @@ export default function Desktop({ goPage, urlPath }: Props) {
         </button>
       </div>
       <div className="absolute flex left-1/2 -translate-x-1/2">
-        <div className="text-bakoB text-4xl font-bold tracking-[12px] text-center">
-          BAKO
-        </div>
+        <Image src={logo} alt="Bako" className="w-full" />
       </div>
       <FaUser color="black" size="24px" />
     </header>

@@ -2,13 +2,15 @@ import axios from "axios";
 import { useRouter } from "next/router";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa6";
+import InputBase from "../Input/InputBase";
 
 export default function LoginStatus() {
-  const [showPassword, setShowPassword] = useState(false);
-  const [accountError, setAccountError] = useState(false);
+  const [data, setData] = useState({
+    email: "",
+    password: "",
+  });
+  const [emailError, setEmailError] = useState(false);
   const [passWordError, setPassWordError] = useState(false);
-  const [inputAccount, setInputAccount] = useState("");
-  const [inputPassword, setInputPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const router = useRouter();
   const goPage = (page: string) => {
@@ -51,7 +53,7 @@ export default function LoginStatus() {
     //   setPassWordError(true);
     //   setLoading(false);
     // }
-  }, [inputAccount, inputPassword]);
+  }, [data]);
 
   return (
     <>
@@ -64,62 +66,33 @@ export default function LoginStatus() {
         </div>
       </div>
       <div className="space-y-4">
-        <div
-          className={`relative min-w-[320px] border rounded-full lg:max-w-2xl ${
-            accountError ? "border-error" : "border-washi"
-          }`}
-        >
-          <input
-            className="w-full h-10 lg:h-14 text-base text-bakoW bg-transparent focus:outline-none px-5 placeholder-bakoW/40"
-            type="text"
-            placeholder="Email"
-            value={inputAccount}
-            onChange={(e: any) => {
-              setInputAccount(e.target.value);
-              setAccountError(false);
-            }}
-          />
-        </div>
-        <div
-          className={`relative min-w-[320px] border rounded-full lg:max-w-2xl ${
-            passWordError ? "border-error" : "border-washi"
-          }`}
-        >
-          <input
-            className="w-full h-10 lg:h-14 text-base text-bakoW bg-transparent focus:outline-none px-5 placeholder-bakoW/40"
-            placeholder="Password"
-            type={showPassword ? "text" : "password"}
-            value={inputPassword}
-            onChange={(e: any) => {
-              setInputPassword(e.target.value);
-              setPassWordError(false);
-            }}
-          />
-          {inputPassword && (
-            <div
-              className="absolute inset-y-[37%] right-4"
-              onClick={() => setShowPassword(!showPassword)}
-            >
-              <a className="cursor-pointer text-xs font-medium leading-normal tracking-[1.2px]">
-                {showPassword ? (
-                  <FaEye size="16px" />
-                ) : (
-                  <FaEyeSlash size="16px" />
-                )}
-              </a>
-            </div>
-          )}
-        </div>
+        <InputBase
+          placeholder="Email"
+          value={data.email}
+          onChange={(e: any) => {
+            setData({ ...data, email: e.target.value });
+          }}
+          error={emailError}
+        />
+        <InputBase
+          placeholder="Password"
+          value={data.password}
+          onChange={(e: any) => {
+            setData({ ...data, password: e.target.value });
+          }}
+          error={passWordError}
+          toggle={true}
+        />
       </div>
-      {/* input */}
+
       <button
         className={`mt-8 mb-6 h-[60px] items-center w-full rounded-full text-base font-bold uppercase leading-normal tracking-[6.4px] text-bakoB bg-bakoW
           ${
-            inputAccount === "" || inputPassword === ""
+            data.email === "" || data.password === ""
               ? "cursor-not-allowed opacity-30"
               : "cursor-pointer opacity-100"
           }`}
-        disabled={inputAccount === "" || inputPassword === ""}
+        disabled={data.email === "" || data.password === ""}
         onClick={() => handleLogin()}
       >
         {loading ? <span className="loader" /> : "Login"}

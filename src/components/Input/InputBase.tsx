@@ -31,7 +31,7 @@ export default function InputBase({
       <input
         className="w-full h-10 lg:h-14 text-base text-bakoW bg-transparent focus:outline-none px-5 placeholder-bakoW/40"
         placeholder={placeholder}
-        type={showPassword ? "text" : "password"}
+        type={toggle ? (showPassword ? "text" : "password") : "text"}
         value={value}
         onChange={onChange}
       />

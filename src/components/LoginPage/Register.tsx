@@ -4,8 +4,9 @@ import React, { useCallback, useEffect, useRef, useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa6";
 import { BsDot } from "react-icons/bs";
 import InputBase from "../Input/InputBase";
+import { StatusType } from "@/pages";
 
-export default function RegisterStatus() {
+export default function RegisterStatus({ setStatus }: any) {
   const [data, setData] = useState({
     first_name: "",
     last_name: "",
@@ -69,6 +70,7 @@ export default function RegisterStatus() {
           Please fill in the information below:
         </div>
       </div>
+
       <div className="space-y-4">
         <InputBase
           placeholder="First Name"
@@ -107,14 +109,22 @@ export default function RegisterStatus() {
       <button
         className={`mt-8 mb-6 h-[60px] items-center w-full rounded-full text-base font-bold uppercase leading-normal tracking-[6.4px] text-bakoB bg-bakoW
           ${
-            data.email === "" || data.first_name === ""
+            data.email === "" ||
+            data.first_name === "" ||
+            data.last_name === "" ||
+            data.password === ""
               ? "cursor-not-allowed opacity-30"
               : "cursor-pointer opacity-100"
           }`}
-        disabled={data.email === "" || data.first_name === ""}
-        onClick={() => handleLogin()}
+        disabled={
+          data.email === "" ||
+          data.first_name === "" ||
+          data.last_name === "" ||
+          data.password === ""
+        }
+        onClick={() => setStatus(StatusType.VERIFY)}
       >
-        {loading ? <span className="loader" /> : "Login"}
+        {loading ? <span className="loader" /> : "continue"}
       </button>
     </>
   );

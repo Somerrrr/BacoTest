@@ -1,12 +1,15 @@
-import { useRouter } from "next/router";
 import React, { useState } from "react";
-import LoginStatus from "@/components/LoginPage/LoginStatus";
+import LoginStatus from "@/components/LoginPage/Login";
 import RegisterStatus from "@/components/LoginPage/Register";
 import { BsDot } from "react-icons/bs";
+import Image from "next/image";
+import logo from "@/assets/LOGO_W.svg";
+import Verify from "@/components/LoginPage/Verify";
 
 export const StatusType = {
   LOGIN: "login",
   REGISTER: "register",
+  VERIFY: "verify",
   RECOVER: "recover",
 } as const;
 
@@ -14,16 +17,15 @@ export type PageStatus = (typeof StatusType)[keyof typeof StatusType];
 
 export default function Login() {
   const [status, setStatus] = useState<PageStatus>(StatusType.LOGIN);
-  const router = useRouter();
-  const goPage = (page: string) => {
-    router.push(page);
-  };
+
   const statusPage = () => {
     switch (status) {
       case StatusType.LOGIN:
         return <LoginStatus />;
       case StatusType.REGISTER:
-        return <RegisterStatus />;
+        return <RegisterStatus setStatus={setStatus} />;
+      case StatusType.VERIFY:
+        return <Verify />;
       case StatusType.RECOVER:
         return <div>Recover</div>;
       default:
@@ -84,7 +86,9 @@ export default function Login() {
   return (
     <main className="flex min-h-screen bg-bakoB">
       <div className="m-auto">
-        <div className="justify-center text text-center">Bako</div>
+        <div className="w-full flex justify-center px-5">
+          <Image src={logo} alt="Bako" className="w-full" />
+        </div>
         {statusPage()}
         {statusText()}
       </div>

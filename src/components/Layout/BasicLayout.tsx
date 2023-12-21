@@ -4,6 +4,7 @@ import Header from "../Header/Header";
 // import LoadingPage from "../LoadingPage/LoadingPage";
 //   import Loading from "../../pages/Loading";
 import bg from "@/assets/login/background.png";
+import Footer from "../Footer/Footer";
 
 export default function BaseLayout({
   children,
@@ -42,8 +43,7 @@ export default function BaseLayout({
       {/* {isLoading && <LoadingPage />} */}
       {urlPath !== "/" && <Header urlPath={urlPath} />}
       <main className="max-w-[100vw] min-h-[100vh]">{children}</main>
-      {/* <NavBar urlPath={urlPath} /> */}
-      {/* <Support urlPath={urlPath} /> */}
+      {urlPath !== "/" && <Footer urlPath={urlPath} />}
     </>
   );
 }
