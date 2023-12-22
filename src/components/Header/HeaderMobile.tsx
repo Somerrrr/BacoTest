@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import Image from "next/image";
-import { FaUser } from "react-icons/fa6";
 import logo from "@/assets/MLOGO_B.svg";
 import { LuMenu } from "react-icons/lu";
 import { RxCross2 } from "react-icons/rx";
@@ -57,6 +56,7 @@ export default function Mobile({ goPage, urlPath }: Props) {
           <div className="h-[1px] w-[220px] bg-bakoW opacity-40" />
           {Object.entries(profilePath).map(([path, url]) => (
             <a
+              key={path}
               className={`${
                 url === "/" ? "opacity-40" : ""
               } text-sm leading-[140%] tracking-[.84px]`}
