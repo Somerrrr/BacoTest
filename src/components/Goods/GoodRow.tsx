@@ -2,11 +2,11 @@ import React, { useEffect, useRef, useState } from "react";
 
 export default function GoodRow() {
   return (
-    <div className="flex flex-col gap-6 flex-1">
-      <div className="bg-[#C5C6C7] h-[320px] w-full min-w-[320px]"></div>
+    <div className="flex flex-1 flex-col gap-3 lg:gap-6">
+      <div className="h-[174px] w-full min-w-[174px] bg-[#C5C6C7] lg:h-[320px] lg:min-w-[320px]"></div>
       <div className="space-y-1">
-        <div className="text-black text-xs">craftsman Name</div>
-        <div className="text-black text-base">Product Name</div>
+        <div className="text-xs text-black">craftsman Name</div>
+        <div className="text-base text-black">Product Name</div>
       </div>
     </div>
   );

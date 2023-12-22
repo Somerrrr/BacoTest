@@ -12,19 +12,20 @@ const breakpoints = {
 export default function Collection() {
   return (
     <div className="flex min-h-screen flex-col items-center bg-bakoW">
-      <div className="w-full flex flex-col items-center gap-4 py-16 ">
-        <a className="text-2xl leading-[140%]">Behind Craft</a>
-        <a className="text-base leading-[140%]">
+      <div className="flex w-full flex-col items-center gap-4 py-16">
+        <a className="text-xl leading-[140%] lg:text-2xl">Behind Craft</a>
+        <a className="text-sm leading-[140%] lg:text-base">
           Handpicked craftsmanship with a story to tell.
         </a>
       </div>
-      <div className="flex w-full border-y border-bakoB/20 h-16 justify-end px-14">
-        <div className="flex gap-2  items-center border-l border-bakoB/20 pl-14">
+      <div className="flex h-16 w-full items-center justify-between border-y border-bakoB/20 px-4 opacity-70 lg:justify-end lg:px-14">
+        <div className="flex text-sm lg:hidden">3 products</div>
+        <div className="flex items-center gap-2 border-bakoB/20 text-sm lg:border-l lg:pl-14 lg:text-base">
           Sort
-          <MdOutlineKeyboardArrowDown size="16px" />
+          <MdOutlineKeyboardArrowDown className="h-3 w-3 lg:h-4 lg:w-4" />
         </div>
       </div>
-      <div className="flex w-full px-14 py-16  flex-wrap gap-y-10 gap-x-4">
+      <div className="flex w-full flex-wrap gap-x-[10px] gap-y-4 p-4 lg:gap-x-4 lg:gap-y-10 lg:px-14 lg:py-16">
         {Array(5)
           .fill(0)
           .map((_, i) => (

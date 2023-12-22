@@ -24,12 +24,12 @@ export default function InputBase({
 
   return (
     <div
-      className={`relative min-w-[320px] border rounded-full lg:max-w-2xl ${
+      className={`relative min-w-[320px] rounded-full border lg:max-w-2xl ${
         error ? "border-error" : "border-washi"
       }`}
     >
       <input
-        className="w-full h-10 lg:h-14 text-base text-bakoW bg-transparent focus:outline-none px-5 placeholder-bakoW/40"
+        className="h-14 w-full bg-transparent px-5 text-base text-bakoW placeholder-bakoW/40 focus:outline-none"
         placeholder={placeholder}
         type={toggle ? (showPassword ? "text" : "password") : "text"}
         value={value}

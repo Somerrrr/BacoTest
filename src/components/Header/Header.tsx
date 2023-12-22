@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import Desktop from "./HeaderDesktop";
 import { useRouter } from "next/router";
+import Mobile from "./HeaderMobile";
 
 interface Props {
   urlPath: string;
@@ -13,12 +14,9 @@ export default function Header({ urlPath }: Props) {
   };
 
   return (
-    <div
-      // px={{ base: "2rem", xl: "4rem", "2xl": "8rem" }}
-      className="divider h-full w-full transition-all overflow-hidden"
-    >
+    <div className="divider h-full w-full overflow-hidden transition-all">
       <Desktop goPage={goPage} urlPath={urlPath} />
-      {/* <Mobile goPage={goPage} locale={locale} /> */}
+      <Mobile goPage={goPage} urlPath={urlPath} />
     </div>
   );
 }

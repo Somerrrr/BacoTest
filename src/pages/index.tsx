@@ -4,7 +4,9 @@ import RegisterStatus from "@/components/LoginPage/Register";
 import { BsDot } from "react-icons/bs";
 import Image from "next/image";
 import logo from "@/assets/LOGO_W.svg";
+import logoM from "@/assets/MLOGO_W.svg";
 import Verify from "@/components/LoginPage/Verify";
+import { MdOutlineArrowBack } from "react-icons/md";
 
 export const StatusType = {
   LOGIN: "login",
@@ -36,16 +38,16 @@ export default function Login() {
     switch (status) {
       case StatusType.LOGIN:
         return (
-          <div className="text-xs font-extralight leading-normal flex items-center justify-center">
+          <div className="flex items-center justify-center text-xs font-extralight leading-normal">
             <a
-              className="cursor-pointer hover:text-washi/70 hover:underline underline-offset-2"
+              className="hover:text-washi/70 cursor-pointer underline-offset-2 hover:underline"
               onClick={() => setStatus(StatusType.REGISTER)}
             >
               Create accont
             </a>
             <BsDot />
             <a
-              className="cursor-pointer hover:text-washi/70 hover:underline underline-offset-2"
+              className="hover:text-washi/70 cursor-pointer underline-offset-2 hover:underline"
               onClick={() => setStatus(StatusType.RECOVER)}
             >
               Forgot password
@@ -54,10 +56,10 @@ export default function Login() {
         );
       case StatusType.REGISTER:
         return (
-          <div className="text-xs font-extralight leading-normal flex items-center justify-center">
+          <div className="flex items-center justify-center text-xs font-extralight leading-normal">
             <a>Have an account?</a>
             <a
-              className="cursor-pointer hover:text-washi/70 hover:underline underline-offset-2 whitespace-pre-wrap"
+              className="hover:text-washi/70 cursor-pointer whitespace-pre-wrap underline-offset-2 hover:underline"
               onClick={() => setStatus(StatusType.LOGIN)}
             >
               {" "}
@@ -67,10 +69,10 @@ export default function Login() {
         );
       case StatusType.RECOVER:
         return (
-          <div className="text-xs font-extralight leading-normal flex items-center justify-center">
-            <a>Remember your password? </a>
+          <div className="flex items-center justify-center text-xs font-extralight leading-normal">
+            <a>Remember your password?</a>
             <a
-              className="cursor-pointer hover:text-washi/70 hover:underline underline-offset-2 whitespace-pre-wrap"
+              className="hover:text-washi/70 cursor-pointer whitespace-pre-wrap underline-offset-2 hover:underline"
               onClick={() => setStatus(StatusType.LOGIN)}
             >
               {" "}
@@ -82,15 +84,49 @@ export default function Login() {
         return <></>;
     }
   };
+  const statusArrow = () => {
+    switch (status) {
+      case StatusType.LOGIN:
+        return <></>;
+      case StatusType.REGISTER:
+        return (
+          <div className="absolute left-4 top-4">
+            <MdOutlineArrowBack
+              size="24px"
+              color="#EFEFEF"
+              onClick={() => setStatus(StatusType.LOGIN)}
+            />
+          </div>
+        );
+      case StatusType.RECOVER:
+        return (
+          <div className="absolute left-4 top-4">
+            <MdOutlineArrowBack
+              size="24px"
+              color="#EFEFEF"
+              onClick={() => setStatus(StatusType.LOGIN)}
+            />
+          </div>
+        );
+      default:
+        return <></>;
+    }
+  };
 
   return (
-    <main className="flex min-h-screen bg-bakoB text-bakoW">
-      <div className="m-auto">
-        <div className="w-full flex justify-center px-5">
-          <Image src={logo} alt="Bako" className="w-full" />
+    <main className="relative flex min-h-screen bg-bakoB text-bakoW">
+      {statusArrow()}
+      <div className="relative m-auto">
+        <Image
+          src={logoM}
+          alt="Bako"
+          className="fadeOut absolute top-1/3 w-full opacity-0 lg:hidden"
+        />
+        <div className="fadeIn flex w-full flex-col justify-center px-5 opacity-100">
+          <Image src={logo} alt="Bako" className="hidden w-full lg:flex" />
+          {statusPage()}
+          {statusText()}
         </div>
-        {statusPage()}
-        {statusText()}
       </div>
     </main>
   );

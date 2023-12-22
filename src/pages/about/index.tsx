@@ -4,8 +4,8 @@ import React, { useEffect, useRef, useState } from "react";
 
 export default function About() {
   return (
-    <div className="flex min-h-screen flex-col items-center bg-bakoW gap-16 py-16 ">
-      <div className=" h-full w-3/4 justify-center">
+    <div className="flex min-h-screen flex-col items-center gap-16 bg-bakoW pb-16 pt-4 lg:py-16">
+      <div className="h-full w-full justify-center px-4 lg:w-3/4 lg:px-0">
         <div
           style={{
             padding: "56.25% 0 0 0",
@@ -29,8 +29,8 @@ export default function About() {
           />
         </div>
       </div>
-      <div className="flex flex-col gap-6 max-w-[60%]">
-        <a className="text-2xl leading-[120%] text-center">BAKO Means Box</a>
+      <div className="flex flex-col gap-6 px-4 lg:max-w-[60%] lg:px-0">
+        <a className="text-center text-2xl leading-[120%]">BAKO Means Box</a>
         <a className="text-left">
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
           eiusmod tempor incididunt ut labore et dolore magna aliqua. Donec
@@ -43,8 +43,8 @@ export default function About() {
           ullamcorper sit amet risus nullam eget.
         </a>
       </div>
-      <div className="flex flex-col gap-6 max-w-[60%]">
-        <a className="text-2xl leading-[120%] text-center">Our Journey</a>
+      <div className="flex flex-col gap-6 px-4 lg:max-w-[60%] lg:px-0">
+        <a className="text-center text-2xl leading-[120%]">Our Journey</a>
         <a className="text-left">
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
           eiusmod tempor incididunt ut labore et dolore magna aliqua. Donec

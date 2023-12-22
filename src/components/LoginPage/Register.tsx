@@ -62,7 +62,7 @@ export default function RegisterStatus({ setStatus }: any) {
 
   return (
     <>
-      <div className="mt-[128px] mb-16 space-y-6 text-center">
+      <div className="mb-16 space-y-6 text-center lg:mt-[128px]">
         <a className="text-2xl font-bold uppercase leading-normal tracking-[9.6px] text-bakoW">
           REGISTER
         </a>
@@ -107,7 +107,7 @@ export default function RegisterStatus({ setStatus }: any) {
         />
       </div>
       <button
-        className={`mt-8 mb-6 h-[60px] items-center w-full rounded-full text-base font-bold uppercase leading-normal tracking-[6.4px] text-bakoB bg-bakoW
+        className={`mb-6 mt-8 h-[60px] w-full items-center rounded-full bg-bakoW text-base font-bold uppercase leading-normal tracking-[6.4px] text-bakoB
           ${
             data.email === "" ||
             data.first_name === "" ||

@@ -10,7 +10,7 @@ interface Props {
 
 export default function Desktop({ goPage, urlPath }: Props) {
   return (
-    <header className="bg-bakoW relative self-stretch h-[104px] flex w-full items-center justify-between px-14 border-bakoB/20 border-b">
+    <header className="bg-bakoW hidden relative self-stretch h-[104px] lg:flex w-full items-center justify-between px-14 border-bakoB/20 border-b">
       <div className="flex items-center justify-between gap-16">
         <button
           onClick={() => goPage("/about")}

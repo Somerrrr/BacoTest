@@ -1,36 +1,47 @@
-import GoodRow from "@/components/Goods/GoodRow";
-import axios from "axios";
-import React, { useEffect, useRef, useState } from "react";
+import ProfileHeader from "@/components/Profile/ProfileHeader";
+import React from "react";
 
 export default function Profile() {
-  const profilePath = ["Orders", "Inquires", "Profile", "Addresses", "Logout"];
+  const data = {
+    firstName: "Shine",
+    lastName: "Chang",
+    email: "shine@soooul.xyz",
+  };
   return (
     <div className="flex flex-col items-center bg-bakoW">
-      <div className="w-full flex justify-center gap-12 py-12 ">
-        {profilePath.map((path) => (
-          <a key={path} className="text-base leading-[140%] cursor-pointer">
-            {path}
-          </a>
-        ))}
-      </div>
-      <div className="w-full border-y border-bakoB/20 py-6 flex justify-center">
-        <div className="w-[85%] flex justify-between items-center opacity-70">
-          <div className="w-[14%]">Date</div>
-          <div className="w-[42%]">Item</div>
-          <div className="w-[14%]">Total</div>
-          <div className="w-[14%]">Address</div>
-          <div className="w-[14%] text-right">Actions</div>
-        </div>
-      </div>
-      <div className="w-full border-b border-bakoB/20 py-6 flex justify-center">
-        <div className="w-[85%] flex justify-between items-center opacity-70">
-          <div className="w-[14%]">12-10-2023</div>
-          <div className="w-[42%]">
-            <div className="w-[152px] h-[152px] bg-[#C5C6C7]"></div>
+      <ProfileHeader />
+      <div className="w-full border-y border-bakoB/20 py-32 flex flex-col gap-16 items-center">
+        <a className="uppercase font-bold text-2xl tracking-[9.6px]">
+          My profile
+        </a>
+        <div className="space-y-8 w-full max-w-sm">
+          <div className="flex justify-between">
+            <div className="space-x-3">
+              <a>First name:</a>
+              <a className="font-bold">{data.firstName}</a>
+            </div>
+            <button className="underline underline-offset-[3px] opacity-40">
+              change
+            </button>
           </div>
-          <div className="w-[14%]">Pending</div>
-          <div className="w-[14%]">19 W Lancaster Ave, Ardmore, PA 19003</div>
-          <div className="w-[14%] text-right">Actions</div>
+          <div className="flex justify-between">
+            <div className="space-x-3">
+              <a>Last name:</a>
+              <a className="font-bold">{data.lastName}</a>
+            </div>
+            <button className="underline underline-offset-[3px] opacity-40">
+              change
+            </button>
+          </div>
+          <div className="flex justify-between">
+            <div className="space-x-3">
+              <a>Email:</a>
+              <a className="font-bold">{data.email}</a>
+            </div>
+            <button className="underline underline-offset-[3px] opacity-40">
+              change
+            </button>
+          </div>
         </div>
       </div>
     </div>
