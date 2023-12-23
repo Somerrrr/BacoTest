@@ -14,9 +14,9 @@ export default function Header({ urlPath }: Props) {
   };
 
   return (
-    <div className="divider h-full w-full overflow-hidden transition-all">
+    <header className="z-10 h-full w-full overflow-hidden transition-all">
       <Desktop goPage={goPage} urlPath={urlPath} />
       <Mobile goPage={goPage} urlPath={urlPath} />
-    </div>
+    </header>
   );
 }

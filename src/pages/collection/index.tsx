@@ -20,7 +20,7 @@ export default function Collection() {
       </div>
       <div className="flex h-16 w-full items-center justify-between border-y border-bakoB/20 px-4 opacity-70 lg:justify-end lg:px-14">
         <div className="flex text-sm lg:hidden">3 products</div>
-        <div className="flex items-center gap-2 border-bakoB/20 text-sm lg:border-l lg:pl-14 lg:text-base">
+        <div className="flex h-full items-center gap-2 border-bakoB/20 text-sm lg:border-l lg:pl-14 lg:text-base">
           Sort
           <MdOutlineKeyboardArrowDown className="h-3 w-3 lg:h-4 lg:w-4" />
         </div>
