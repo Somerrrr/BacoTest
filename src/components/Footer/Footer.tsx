@@ -1,20 +1,18 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useRouter } from "next/router";
 import yt from "@/assets/ICONS/footer_yt.svg";
 import x from "@/assets/ICONS/footer_x.svg";
 import ig from "@/assets/ICONS/footer_ig.svg";
 import Image from "next/image";
 import { footerPath } from "@/constants/pathList";
+import { BacoContext } from "../BacoProvider";
 
 interface Props {
   urlPath: string;
 }
 
 export default function Footer({ urlPath }: Props) {
-  const router = useRouter();
-  const goPage = (page: string) => {
-    router.push(page);
-  };
+  const { goPage } = useContext(BacoContext);
 
   return (
     <footer className="flex w-full flex-col gap-16 border-t border-bakoB/20 bg-bakoW px-14 py-12 transition-all lg:py-16">

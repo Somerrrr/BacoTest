@@ -1,10 +1,11 @@
 import axios from "axios";
 import { useRouter } from "next/router";
-import React, { useCallback, useEffect, useRef, useState } from "react";
-import { FaEye, FaEyeSlash } from "react-icons/fa6";
+import React, { useCallback, useContext, useState } from "react";
+import { BacoContext } from "../BacoProvider";
 import InputBase from "../Input/InputBase";
 
 export default function LoginStatus() {
+  const { goPage } = useContext(BacoContext);
   const [data, setData] = useState({
     email: "",
     password: "",
@@ -12,10 +13,7 @@ export default function LoginStatus() {
   const [emailError, setEmailError] = useState(false);
   const [passWordError, setPassWordError] = useState(false);
   const [loading, setLoading] = useState(false);
-  const router = useRouter();
-  const goPage = (page: string) => {
-    router.push(page);
-  };
+
   const handleLogin = useCallback(async () => {
     setLoading(true);
     goPage("/collection");

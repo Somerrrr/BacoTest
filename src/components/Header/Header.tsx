@@ -1,17 +1,15 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import Desktop from "./HeaderDesktop";
 import { useRouter } from "next/router";
 import Mobile from "./HeaderMobile";
+import { BacoContext } from "../BacoProvider";
 
 interface Props {
   urlPath: string;
 }
 
 export default function Header({ urlPath }: Props) {
-  const router = useRouter();
-  const goPage = (page: string) => {
-    router.push(page);
-  };
+  const { goPage } = useContext(BacoContext);
 
   return (
     <header className="z-10 h-full w-full overflow-hidden transition-all">

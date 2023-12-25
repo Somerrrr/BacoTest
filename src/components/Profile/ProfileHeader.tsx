@@ -38,7 +38,7 @@ export default function ProfileHeader() {
   return (
     <>
       {/* Desktop */}
-      <div className="hidden w-full justify-center gap-12 py-12 lg:flex">
+      <div className="hidden w-full justify-center gap-12 border-b border-bakoB/20 py-12 lg:flex">
         {Object.entries(profilePath).map(([path, url]) => (
           <a
             key={path}

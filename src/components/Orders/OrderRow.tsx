@@ -1,46 +1,22 @@
-import ProfileHeader from "@/components/Profile/ProfileHeader";
 import React, { useEffect, useRef, useState } from "react";
-import { MdOutlineKeyboardArrowDown } from "react-icons/md";
 
 interface OrdersProps {
   rowData: any;
 }
 export default function OrderRow({ rowData }: OrdersProps) {
-  const [showDetail, setShowDetail] = useState(false);
   return (
-    <>
-      <div className="flex w-full items-center">
-        <div className="flex w-full gap-[10px]">
-          <div className="flex h-[82px] w-[82px] bg-bakoB/20"></div>
-          <div className="flex max-w-[75%] flex-col justify-center gap-[2px] leading-[140%]">
-            <a>{rowData.product_name}</a>
-            <a className="text-xs">{rowData.craftsman_name}</a>
-            <a className="pt-[3px] text-xs">{rowData.date}</a>
-          </div>
+    <div className="hidden w-[85%] items-center justify-between opacity-70 lg:flex">
+      <div className="w-[14%]">{rowData.date}</div>
+      <div className="flex w-[42%] items-center gap-6">
+        <div className="h-[152px] w-[152px] bg-black/80"></div>
+        <div className="flex flex-col">
+          <a>{rowData.product_name}</a>
+          <a className="text-xs">{rowData.craftsman_name}</a>
         </div>
-        <MdOutlineKeyboardArrowDown
-          size="32px"
-          className={`${
-            showDetail ? "-rotate-180" : ""
-          } cursor-pointer transition-all`}
-          onClick={() => setShowDetail(!showDetail)}
-        />
       </div>
-      <div
-        className={`${
-          showDetail ? "block" : "hidden"
-        } flex w-full overflow-hidden`}
-      >
-        <div className="flex w-full gap-[10px]">
-          <div className="flex h-[82px] w-[82px] bg-transparent"></div>
-          <div className="flex max-w-[75%] flex-col gap-3 text-xs leading-[140%]">
-            <a>{rowData.address}</a>
-            <a>{rowData.total}</a>
-            <a className="pt-[2px] underline">{rowData.action}</a>
-          </div>
-        </div>
-        <div className="flex h-auto w-8 bg-transparent"></div>
-      </div>
-    </>
+      <div className="w-[14%]">{rowData.total}</div>
+      <div className="w-[14%]">{rowData.address}</div>
+      <div className="w-[14%] text-right">{rowData.action}</div>
+    </div>
   );
 }

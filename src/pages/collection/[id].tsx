@@ -2,12 +2,14 @@ import { useRouter } from "next/router";
 import yt from "@/assets/ICONS/footer_yt.svg";
 import ig from "@/assets/ICONS/footer_ig.svg";
 import Image from "next/image";
+import { useEffect } from "react";
+import { imgur } from "../detail";
 // export async function getStaticPaths() {
 //   // 返回所有可能的動態路徑
 //   return {
 //     paths: [
-//       { params: { slug: "abc" } },
-//       { params: { slug: "def" } },
+//       { params: { id: "0" } },
+//       { params: { id: "1" } },
 //       // ...
 //     ],
 //     fallback: false, // or true if you want to enable incremental static regeneration
@@ -15,8 +17,8 @@ import Image from "next/image";
 // }
 
 // export async function getStaticProps({ params }: any) {
-//   // 使用 params.slug 從數據源獲取數據
-//   //   const data = fetchData(params.slug);
+//   // 使用 params.id 從數據源獲取數據
+//   //   const data = fetchData(params.id);
 
 //   return {
 //     props: {
@@ -27,9 +29,9 @@ import Image from "next/image";
 
 const DynamicPage = ({ data }: any) => {
   const router = useRouter();
-  const { slug } = router.query;
+  const { id } = router.query;
   console.log(router.query.id);
-  console.log("data:", data);
+  //   console.log("data:", data);
   const mock = {
     date: "2021-10-10",
     item: "Product Name",
@@ -47,12 +49,34 @@ const DynamicPage = ({ data }: any) => {
     Shipping_info: "typically ships in 2-3 days",
     Care: "wash with water",
   };
-
+  const getImages = async () => {
+    try {
+      const res = await imgur.get("https://api.imgur.com/3/image/ZRxpnLr");
+      console.log(res.data);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+  useEffect(() => {
+    getImages();
+  }, []);
   return (
-    <div className="flex flex-col items-center bg-bakoW p-4 pb-16 lg:flex-row lg:justify-between lg:px-[10%] lg:py-20">
+    <div className="flex flex-col items-start bg-bakoW p-4 pb-16 lg:flex-row lg:justify-between lg:px-[10%] lg:py-20">
       {/* <p className="text-black">id: {router.query.id}</p> */}
-      <div className="lg:w-[57.14%]">
-        <div className="h-[358px] w-full min-w-[174px] bg-[#C5C6C7] lg:h-[320px] lg:min-w-[320px]"></div>
+      <div className="hidden w-[57.14%] gap-6 lg:flex">
+        <div className="flex flex-col gap-4">
+          <Image
+            src="https://i.imgur.com/ZRxpnLr.png"
+            alt="pic1"
+            width={320}
+            height={320}
+            className="h-[68px] w-[68px]"
+          />
+        </div>
+        <div className="h-[572px]  w-full min-w-[320px] bg-[#C5C6C7]"></div>
+      </div>
+      <div className="flex w-full flex-col lg:hidden">
+        <div className="h-[358px] w-full min-w-[174px] bg-[#C5C6C7] lg:h-[572px] lg:min-w-[320px]"></div>
         <div>arrow</div>
       </div>
       <div className="lg:w-[35.7%]">

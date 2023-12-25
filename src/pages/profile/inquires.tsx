@@ -1,6 +1,7 @@
-import OrderRow from "@/components/Orders/OrderRow";
-import ProfileHeader from "@/components/Profile/ProfileHeader";
 import React from "react";
+import ProfileHeader from "@/components/Profile/ProfileHeader";
+import OrderRowM from "@/components/Orders/OrderRowM";
+import OrderRow from "@/components/Orders/OrderRow";
 const COLUMN_WIDTHS = ["14%", "42%", "14%", "14%", "14%"];
 
 export default function Inquires() {
@@ -26,7 +27,7 @@ export default function Inquires() {
     },
   ];
   const renderHeader = (headers: any) => (
-    <div className="hidden w-full justify-center border-y border-bakoB/20 py-6 lg:flex">
+    <div className="hidden w-full justify-center border-b border-bakoB/20 py-6 lg:flex">
       <div className="flex w-[85%] items-center justify-between opacity-70">
         {headers.map((header: string, idx: number) => (
           <div
@@ -48,21 +49,8 @@ export default function Inquires() {
           key={rowIndex}
           className="flex w-full justify-center border-b border-bakoB/20 py-4 text-black lg:py-6"
         >
-          <div className="hidden w-[85%] items-center justify-between opacity-70 lg:flex">
-            {Object.values(row).map((col: any, colIndex: number) => (
-              <div
-                key={colIndex}
-                className={`w-[${COLUMN_WIDTHS[colIndex]}] ${
-                  colIndex === 4 ? "text-right" : ""
-                }`}
-              >
-                {col}
-              </div>
-            ))}
-          </div>
-          <div className="flex w-full flex-col items-center justify-between gap-4 px-4 opacity-70 lg:hidden">
-            <OrderRow rowData={row} />
-          </div>
+          <OrderRow rowData={row} />
+          <OrderRowM rowData={row} />
         </div>
       ))}
     </>

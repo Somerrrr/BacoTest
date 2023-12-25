@@ -1,3 +1,4 @@
+import { BacoProvider } from "@/components/BacoProvider";
 import BaseLayout from "@/components/Layout/BasicLayout";
 import "@/styles/globals.css";
 import type { AppProps } from "next/app";
@@ -47,11 +48,11 @@ export default function App({ Component, pageProps }: AppProps) {
         <title>BAKO Marketplace</title>
       </Head>
       {/* <ChakraProvider theme={theme}> */}
-      {/* <MarketProvider> */}
-      <BaseLayout>
-        <Component {...pageProps} />
-      </BaseLayout>
-      {/* </MarketProvider> */}
+      <BacoProvider>
+        <BaseLayout>
+          <Component {...pageProps} />
+        </BaseLayout>
+      </BacoProvider>
       {/* </ChakraProvider> */}
     </>
   );

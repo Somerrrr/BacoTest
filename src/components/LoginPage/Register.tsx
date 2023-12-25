@@ -1,12 +1,14 @@
 import axios from "axios";
 import { useRouter } from "next/router";
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, { useCallback, useContext, useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa6";
 import { BsDot } from "react-icons/bs";
 import InputBase from "../Input/InputBase";
 import { StatusType } from "@/pages";
+import { BacoContext } from "../BacoProvider";
 
 export default function RegisterStatus({ setStatus }: any) {
+  const { goPage } = useContext(BacoContext);
   const [data, setData] = useState({
     first_name: "",
     last_name: "",
@@ -17,10 +19,7 @@ export default function RegisterStatus({ setStatus }: any) {
   const [accountError, setAccountError] = useState(false);
   const [passWordError, setPassWordError] = useState(false);
   const [loading, setLoading] = useState(false);
-  const router = useRouter();
-  const goPage = (page: string) => {
-    router.push(page);
-  };
+
   const handleLogin = useCallback(async () => {
     setLoading(true);
     goPage("/collection");
