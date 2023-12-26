@@ -1,18 +1,24 @@
+import { useContext, useEffect, useState } from "react";
+import { BacoContext } from "@/components/BacoProvider";
 import { useRouter } from "next/router";
+import Image from "next/image";
 import yt from "@/assets/ICONS/footer_yt.svg";
 import ig from "@/assets/ICONS/footer_ig.svg";
-import Image from "next/image";
-import { useEffect } from "react";
 import { imgur } from "../detail";
+import { Good, goods } from "@/constants/Mock";
+import { ytLink } from "@/constants/socialLink";
+
 // export async function getStaticPaths() {
 //   // 返回所有可能的動態路徑
 //   return {
 //     paths: [
 //       { params: { id: "0" } },
 //       { params: { id: "1" } },
-//       // ...
+//       { params: { id: "2" } },
+//       { params: { id: "3" } },
+//       { params: { id: "4" } },
 //     ],
-//     fallback: false, // or true if you want to enable incremental static regeneration
+//     fallback: true,
 //   };
 // }
 
@@ -27,27 +33,25 @@ import { imgur } from "../detail";
 //   };
 // }
 
-const DynamicPage = ({ data }: any) => {
+const DynamicPage = ({ StaticData }: any) => {
   const router = useRouter();
   const { id } = router.query;
-  console.log(router.query.id);
-  //   console.log("data:", data);
-  const mock = {
-    date: "2021-10-10",
-    item: "Product Name",
-    product_name: "Product Name",
-    craftsman_name: "Craftsman Name",
-    total: "$10,000",
-    address: "19 W Lancaster Ave, Ardmore, PA 19003",
-    action: "action",
-    detail:
-      "At the heart of every bike is a frame meticulously welded and finished by hand, ensuring not only an unparalleled aesthetic but also exceptional strength and durability. The choice of materials is a testament to our commitment to quality, featuring premium-grade steel or aluminum, complemented by elegant wooden accents that echo the bike's artisanal roots.",
+  const { goPage } = useContext(BacoContext);
+  const [data, setData] = useState<Good>(goods[id as any]);
+  const [imgIndex, setImgIndex] = useState(0);
+  const images = [
+    "https://i.imgur.com/ZRxpnLr.png",
+    "https://i.imgur.com/WzBHx6a.png",
+    "https://i.imgur.com/GOaH2G0.png",
+  ];
+  const openLink = (link: string) => {
+    window.open(link, "_blank");
   };
-  const goodsDimensions = {
-    Dimensions: "47.5 x 23.5 x 8.5 cm",
-    Material: "carbon fiber",
-    Shipping_info: "typically ships in 2-3 days",
-    Care: "wash with water",
+  const stringFormat = (str: string) => {
+    return str
+      .replace(/_/g, " ")
+      .toLowerCase()
+      .replace(/(?:^|\s)\S/g, (a) => a.toUpperCase());
   };
   const getImages = async () => {
     try {
@@ -62,18 +66,31 @@ const DynamicPage = ({ data }: any) => {
   }, []);
   return (
     <div className="flex flex-col items-start bg-bakoW p-4 pb-16 lg:flex-row lg:justify-between lg:px-[10%] lg:py-20">
-      {/* <p className="text-black">id: {router.query.id}</p> */}
       <div className="hidden w-[57.14%] gap-6 lg:flex">
         <div className="flex flex-col gap-4">
+          {data.imgs?.map((img, index) => (
+            <Image
+              onClick={() => setImgIndex(index)}
+              key={index}
+              src={img}
+              alt="pic1"
+              width={68}
+              height={68}
+              className={`${
+                index === imgIndex ? "border-bakoB" : "border-bakoB/20"
+              } h-[68px] w-[68px] border object-contain`}
+            />
+          ))}
+        </div>
+        <div className="h-[572px] w-full min-w-[320px] bg-[#C5C6C7]">
           <Image
-            src="https://i.imgur.com/ZRxpnLr.png"
+            src={data.imgs[imgIndex]}
             alt="pic1"
-            width={320}
-            height={320}
-            className="h-[68px] w-[68px]"
+            width={1000}
+            height={1000}
+            className="h-full w-full object-contain"
           />
         </div>
-        <div className="h-[572px]  w-full min-w-[320px] bg-[#C5C6C7]"></div>
       </div>
       <div className="flex w-full flex-col lg:hidden">
         <div className="h-[358px] w-full min-w-[174px] bg-[#C5C6C7] lg:h-[572px] lg:min-w-[320px]"></div>
@@ -81,29 +98,38 @@ const DynamicPage = ({ data }: any) => {
       </div>
       <div className="lg:w-[35.7%]">
         <div className="flex w-full flex-col gap-2 border-b border-bakoB/20 pb-8 leading-[140%]">
-          <a className="text-2xl">{mock.product_name}</a>
-          <a>{mock.craftsman_name}</a>
+          <a className="text-2xl">{data.product_name}</a>
+          <a>{data.craftsman_name}</a>
         </div>
         <div className="flex w-full flex-col gap-4 border-b border-bakoB/20 py-8 text-sm leading-[140%] lg:text-base">
-          <a className="">{mock.detail}</a>
-          <a>
-            Please take a listen to [Craftsman Name] talk about [podcast
-            highlight]:
-          </a>
+          <a className="">{data.detail}</a>
+          <div>
+            Please take a listen to
+            <a className="font-bold">{data.craftsman_name}</a> talk about :
+            {/* [podcast highlight]: */}
+          </div>
           <div className="flex items-start gap-4">
-            <Image src={yt} alt="Instagram" className="h-6 w-6 lg:h-8 lg:w-8" />
-            <Image src={ig} alt="Instagram" className="h-6 w-6 lg:h-8 lg:w-8" />
+            <Image
+              src={yt}
+              alt="Instagram"
+              className="h-6 w-6 lg:h-8 lg:w-8"
+              onClick={ytLink ? () => openLink(ytLink) : () => {}}
+            />
+            {/* <Image src={ig} alt="Instagram" className="h-6 w-6 lg:h-8 lg:w-8" /> */}
           </div>
         </div>
         <div className="flex w-full flex-col gap-4 py-8 leading-[140%]">
-          {Object.entries(goodsDimensions).map(([key, value]) => (
+          {Object.entries(data?.specifications).map(([key, value]) => (
             <div key={key} className="flex gap-1 text-sm lg:text-base">
-              <a className="font-bold">{key}:</a>
+              <a className="font-bold">{stringFormat(key)}:</a>
               <a>{value}</a>
             </div>
           ))}
         </div>
-        <button className="h-[60px] w-full rounded-full bg-bakoB font-bold uppercase leading-[140%] tracking-[6.4px] text-bakoW">
+        <button
+          className="h-[60px] w-full rounded-full bg-bakoB font-bold uppercase leading-[140%] tracking-[6.4px] text-bakoW"
+          onClick={() => goPage("/collection/inquire")}
+        >
           inquire
         </button>
       </div>

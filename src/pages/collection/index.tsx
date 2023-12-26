@@ -1,6 +1,5 @@
 import GoodRow from "@/components/Goods/GoodRow";
-import { goods } from "@/constants/Mock";
-import axios from "axios";
+import { Good, goods } from "@/constants/Mock";
 import React, { useEffect, useRef, useState } from "react";
 import { MdOutlineKeyboardArrowDown } from "react-icons/md";
 const breakpoints = {
@@ -11,48 +10,6 @@ const breakpoints = {
   "2xl": "1536px",
 };
 export default function Collection() {
-  const goodsArray = [
-    {
-      id: 0,
-      name: "Product Names",
-      description: "Product Description",
-      price: 100,
-      image: "https://picsum.photos/200/300",
-      craftsman: "Craftman Name",
-    },
-    {
-      id: 1,
-      name: "Product Name",
-      description: "Product Description",
-      price: 100,
-      image: "https://picsum.photos/200/300",
-      craftsman: "Craftman Name",
-    },
-    {
-      id: 2,
-      name: "Product Name",
-      description: "Product Description",
-      price: 100,
-      image: "https://picsum.photos/200/300",
-      craftsman: "Craftman Name",
-    },
-    {
-      id: 3,
-      name: "Product Name",
-      description: "Product Description",
-      price: 100,
-      image: "https://picsum.photos/200/300",
-      craftsman: "Craftman Name",
-    },
-    {
-      id: 4,
-      name: "Product Name",
-      description: "Product Description",
-      price: 100,
-      image: "https://picsum.photos/200/300",
-      craftsman: "Craftman Name",
-    },
-  ];
   return (
     <div className="flex min-h-screen flex-col items-center bg-bakoW">
       <div className="flex w-full flex-col items-center gap-4 py-16">
@@ -68,8 +25,13 @@ export default function Collection() {
           <MdOutlineKeyboardArrowDown className="h-3 w-3 lg:h-4 lg:w-4" />
         </div>
       </div>
-      <div className="flex w-full flex-wrap gap-x-[10px] gap-y-4 p-4 lg:gap-x-4 lg:gap-y-10 lg:px-14 lg:py-16">
+      {/* <div className="flex w-full flex-wrap gap-x-[10px] gap-y-4 p-4 lg:gap-x-4 lg:gap-y-10 lg:px-14 lg:py-16">
         {goodsArray.map((good, i) => (
+          <GoodRow key={i} data={good} />
+        ))}
+      </div> */}
+      <div className="grid grid-cols-2 gap-x-[10px] gap-y-4 p-4 transition-all sm:grid-cols-3 md:grid-cols-3 lg:gap-x-4 lg:gap-y-10 lg:px-14 lg:py-16 2xl:grid-cols-4">
+        {goods.map((good: Good, i) => (
           <GoodRow key={i} data={good} />
         ))}
       </div>

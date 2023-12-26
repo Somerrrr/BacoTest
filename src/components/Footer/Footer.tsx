@@ -6,6 +6,7 @@ import ig from "@/assets/ICONS/footer_ig.svg";
 import Image from "next/image";
 import { footerPath } from "@/constants/pathList";
 import { BacoContext } from "../BacoProvider";
+import { ytLink, igLink, xLink } from "@/constants/socialLink";
 
 interface Props {
   urlPath: string;
@@ -13,7 +14,9 @@ interface Props {
 
 export default function Footer({ urlPath }: Props) {
   const { goPage } = useContext(BacoContext);
-
+  const openLink = (link: string) => {
+    window.open(link, "_blank");
+  };
   return (
     <footer className="flex w-full flex-col gap-16 border-t border-bakoB/20 bg-bakoW px-14 py-12 transition-all lg:py-16">
       <div className="flex flex-col gap-8 lg:flex-row lg:justify-between">
@@ -25,9 +28,24 @@ export default function Footer({ urlPath }: Props) {
           ))}
         </div>
         <div className="flex items-start gap-6">
-          <Image src={ig} alt="Instagram" className="h-6 w-6 lg:w-full" />
-          <Image src={yt} alt="Instagram" className="h-6 w-6 lg:w-full" />
-          <Image src={x} alt="Instagram" className="h-6 w-6 lg:w-full" />
+          <Image
+            src={ig}
+            alt="Instagram"
+            className="h-6 w-6 lg:w-full"
+            onClick={() => openLink(igLink)}
+          />
+          <Image
+            src={yt}
+            alt="Instagram"
+            className="h-6 w-6 lg:w-full"
+            onClick={() => openLink(ytLink)}
+          />
+          <Image
+            src={x}
+            alt="Instagram"
+            className="h-6 w-6 lg:w-full"
+            onClick={() => openLink(xLink)}
+          />
         </div>
       </div>
       <div className="flex text-[10px] leading-[120%] opacity-70">
