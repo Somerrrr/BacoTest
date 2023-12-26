@@ -37,6 +37,7 @@ interface Props {
 
 const DynamicPage = ({ StaticData }: Props) => {
   const router = useRouter();
+  const [click, setClick] = useState(false);
   const { id } = router.query;
   const { goPage } = useContext(BacoContext);
   const [imgIndex, setImgIndex] = useState(0);
@@ -70,11 +71,11 @@ const DynamicPage = ({ StaticData }: Props) => {
               key={index}
               src={img}
               alt="pic1"
-              width={68}
-              height={68}
+              width={200}
+              height={200}
               className={`${
                 index === imgIndex ? "border-bakoB" : "border-bakoB/20"
-              } h-[68px] w-[68px] border object-contain`}
+              } h-[68px] w-[68px] border-2 object-cover`}
             />
           ))}
         </div>
@@ -84,12 +85,23 @@ const DynamicPage = ({ StaticData }: Props) => {
             alt="pic1"
             width={1000}
             height={1000}
-            className="h-full w-full object-contain"
+            className="h-full w-full object-contain transition-all hover:object-cover"
           />
         </div>
       </div>
       <div className="flex w-full flex-col lg:hidden">
-        <div className="h-[358px] w-full min-w-[174px] bg-[#C5C6C7] lg:h-[572px] lg:min-w-[320px]"></div>
+        <div className="h-[358px] w-full min-w-[174px] bg-[#C5C6C7] lg:h-[572px] lg:min-w-[320px]">
+          <Image
+            src={StaticData?.imgs[imgIndex]}
+            alt="pic1"
+            width={1000}
+            height={1000}
+            onClick={() => setClick(!click)}
+            className={`h-full w-full ${
+              click ? "object-cover" : "object-contain"
+            } transition-all`}
+          />
+        </div>
         <div>arrow</div>
       </div>
       <div className="lg:w-[35.7%]">
@@ -100,7 +112,7 @@ const DynamicPage = ({ StaticData }: Props) => {
         <div className="flex w-full flex-col gap-4 border-b border-bakoB/20 py-8 text-sm leading-[140%] lg:text-base">
           <a className="">{StaticData?.detail}</a>
           <div>
-            Please take a listen to
+            Please take a listen to{" "}
             <a className="font-bold">{StaticData?.craftsman_name}</a> talk about
             :{/* [podcast highlight]: */}
           </div>

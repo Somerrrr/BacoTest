@@ -13,13 +13,13 @@ export default function GoodRow({ data }: GoodsProps) {
       className="flex flex-1 cursor-pointer flex-col gap-2 rounded-md p-1 transition-all hover:opacity-80 lg:gap-5"
       onClick={() => goPage(`/collection/${data.id}`)}
     >
-      <div className="h-[174px] w-full min-w-[174px] bg-[#C5C6C7] lg:h-[320px] lg:min-w-[320px]">
+      <div className="h-[174px] w-full min-w-[174px] lg:h-[320px] lg:min-w-[320px]">
         <Image
           src={data.imgs[0]}
           alt="pic"
-          width={100}
-          height={100}
-          className="h-full w-full object-contain"
+          width={1000}
+          height={1000}
+          className="h-full w-full object-cover"
         />
       </div>
       <div className="space-y-1">
