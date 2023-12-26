@@ -8,42 +8,38 @@ import { imgur } from "../detail";
 import { Good, goods } from "@/constants/Mock";
 import { ytLink } from "@/constants/socialLink";
 
-// export async function getStaticPaths() {
-//   // 返回所有可能的動態路徑
-//   return {
-//     paths: [
-//       { params: { id: "0" } },
-//       { params: { id: "1" } },
-//       { params: { id: "2" } },
-//       { params: { id: "3" } },
-//       { params: { id: "4" } },
-//     ],
-//     fallback: true,
-//   };
-// }
+export async function getStaticPaths() {
+  return {
+    paths: [
+      { params: { id: "0" } },
+      { params: { id: "1" } },
+      { params: { id: "2" } },
+      { params: { id: "3" } },
+      { params: { id: "4" } },
+      { params: { id: "5" } },
+    ],
+    fallback: true,
+  };
+}
 
-// export async function getStaticProps({ params }: any) {
-//   // 使用 params.id 從數據源獲取數據
-//   //   const data = fetchData(params.id);
+export async function getStaticProps({ params }: any) {
+  const data = goods[params.id];
 
-//   return {
-//     props: {
-//       data: params.id,
-//     },
-//   };
-// }
+  return {
+    props: {
+      StaticData: data,
+    },
+  };
+}
+interface Props {
+  StaticData: Good;
+}
 
-const DynamicPage = ({ StaticData }: any) => {
+const DynamicPage = ({ StaticData }: Props) => {
   const router = useRouter();
   const { id } = router.query;
   const { goPage } = useContext(BacoContext);
-  const [data, setData] = useState<Good>(goods[id as any]);
   const [imgIndex, setImgIndex] = useState(0);
-  const images = [
-    "https://i.imgur.com/ZRxpnLr.png",
-    "https://i.imgur.com/WzBHx6a.png",
-    "https://i.imgur.com/GOaH2G0.png",
-  ];
   const openLink = (link: string) => {
     window.open(link, "_blank");
   };
@@ -68,7 +64,7 @@ const DynamicPage = ({ StaticData }: any) => {
     <div className="flex flex-col items-start bg-bakoW p-4 pb-16 lg:flex-row lg:justify-between lg:px-[10%] lg:py-20">
       <div className="hidden w-[57.14%] gap-6 lg:flex">
         <div className="flex flex-col gap-4">
-          {data.imgs?.map((img, index) => (
+          {StaticData?.imgs?.map((img: any, index: number) => (
             <Image
               onClick={() => setImgIndex(index)}
               key={index}
@@ -84,7 +80,7 @@ const DynamicPage = ({ StaticData }: any) => {
         </div>
         <div className="h-[572px] w-full min-w-[320px] bg-[#C5C6C7]">
           <Image
-            src={data.imgs[imgIndex]}
+            src={StaticData?.imgs[imgIndex]}
             alt="pic1"
             width={1000}
             height={1000}
@@ -98,15 +94,15 @@ const DynamicPage = ({ StaticData }: any) => {
       </div>
       <div className="lg:w-[35.7%]">
         <div className="flex w-full flex-col gap-2 border-b border-bakoB/20 pb-8 leading-[140%]">
-          <a className="text-2xl">{data.product_name}</a>
-          <a>{data.craftsman_name}</a>
+          <a className="text-2xl">{StaticData?.product_name}</a>
+          <a>{StaticData?.craftsman_name}</a>
         </div>
         <div className="flex w-full flex-col gap-4 border-b border-bakoB/20 py-8 text-sm leading-[140%] lg:text-base">
-          <a className="">{data.detail}</a>
+          <a className="">{StaticData?.detail}</a>
           <div>
             Please take a listen to
-            <a className="font-bold">{data.craftsman_name}</a> talk about :
-            {/* [podcast highlight]: */}
+            <a className="font-bold">{StaticData?.craftsman_name}</a> talk about
+            :{/* [podcast highlight]: */}
           </div>
           <div className="flex items-start gap-4">
             <Image
@@ -119,12 +115,14 @@ const DynamicPage = ({ StaticData }: any) => {
           </div>
         </div>
         <div className="flex w-full flex-col gap-4 py-8 leading-[140%]">
-          {Object.entries(data?.specifications).map(([key, value]) => (
-            <div key={key} className="flex gap-1 text-sm lg:text-base">
-              <a className="font-bold">{stringFormat(key)}:</a>
-              <a>{value}</a>
-            </div>
-          ))}
+          {Object.entries(StaticData?.specifications || {}).map(
+            ([key, value]) => (
+              <div key={key} className="flex gap-1 text-sm lg:text-base">
+                <a className="font-bold">{stringFormat(key)}:</a>
+                <a>{value as any}</a>
+              </div>
+            ),
+          )}
         </div>
         <button
           className="h-[60px] w-full rounded-full bg-bakoB font-bold uppercase leading-[140%] tracking-[6.4px] text-bakoW"
