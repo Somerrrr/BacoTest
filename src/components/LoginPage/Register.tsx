@@ -6,6 +6,7 @@ import { BsDot } from "react-icons/bs";
 import InputBase from "../Input/InputBase";
 import { StatusType } from "@/pages";
 import { BacoContext } from "../BacoProvider";
+import useRegister from "@/hooks/useRegister";
 
 export default function RegisterStatus({ setStatus }: any) {
   const { goPage } = useContext(BacoContext);
@@ -14,49 +15,32 @@ export default function RegisterStatus({ setStatus }: any) {
     last_name: "",
     email: "",
     password: "",
-    passwordConfirm: "",
   });
-  const [accountError, setAccountError] = useState(false);
+  const [emailError, setEmailError] = useState(false);
   const [passWordError, setPassWordError] = useState(false);
-  const [loading, setLoading] = useState(false);
+  const { register, loading, error } = useRegister();
 
-  const handleLogin = useCallback(async () => {
-    setLoading(true);
-    goPage("/collection");
-    // if (inputAccount !== "" && inputPassword !== "") {
-    //   try {
-    //     const res = await loginAccount(inputAccount, inputPassword);
-    //     if (res.code === 200) {
-    //       if (res.data.data[0].role_vid === "123") {
-    //         goPage("/profile");
-    //       }
-    //       if (res.data.data[0].role_vid === "456") {
-    //         goPage("/owner");
-    //       }
-    //       if (res.data.data[0].role_vid === "789") {
-    //         goPage("/concierge");
-    //       } else goPage("/");
-    //       setLoading(false);
-    //       return;
-    //     } else if (res.code === 405) {
-    //       setPassWordError(true);
-    //       setLoading(false);
-    //       return;
-    //     } else {
-    //       setAccountError(true);
-    //       setPassWordError(true);
-    //       setLoading(false);
-    //     }
-    //   } catch (err) {
-    //     setAccountError(true);
-    //     setPassWordError(true);
-    //     setLoading(false);
-    //   }
-    // } else {
-    //   setAccountError(true);
-    //   setPassWordError(true);
-    //   setLoading(false);
-    // }
+  const handleRegister = useCallback(async () => {
+    if (data.email !== "" && data.password !== "") {
+      try {
+        const res = await register(data.email, data.password);
+        console.log(res);
+        if (res.code === 200) {
+          setStatus(StatusType.LOGIN);
+          return;
+        }
+        // else {
+        //   setEmailError(true);
+        //   setPassWordError(true);
+        // }
+      } catch (err) {
+        setEmailError(true);
+        setPassWordError(true);
+      }
+    } else {
+      setEmailError(true);
+      setPassWordError(true);
+    }
   }, [data]);
 
   return (
@@ -121,7 +105,8 @@ export default function RegisterStatus({ setStatus }: any) {
           data.last_name === "" ||
           data.password === ""
         }
-        onClick={() => setStatus(StatusType.VERIFY)}
+        // onClick={() => setStatus(StatusType.VERIFY)}
+        onClick={() => handleRegister()}
       >
         {loading ? <span className="loader" /> : "continue"}
       </button>

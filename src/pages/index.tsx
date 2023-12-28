@@ -43,7 +43,7 @@ export default function Login() {
               className="hover:text-washi/70 cursor-pointer underline-offset-2 hover:underline"
               onClick={() => setStatus(StatusType.REGISTER)}
             >
-              Create accont
+              Create account
             </a>
             <BsDot />
             <a
@@ -122,7 +122,7 @@ export default function Login() {
           alt="Bako"
           className="fadeOut absolute top-1/3 w-full opacity-0 lg:hidden"
         />
-        <div className="fadeIn flex w-full flex-col justify-center px-5 opacity-100">
+        <div className="fadeIn flex w-full flex-col justify-center px-5">
           <Image src={logo} alt="Bako" className="hidden w-full lg:flex" />
           {statusPage()}
           {statusText()}
