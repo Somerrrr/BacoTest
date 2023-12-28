@@ -1,3 +1,4 @@
+import useLogin from "@/hooks/useLogin";
 import axios from "axios";
 import { useRouter } from "next/router";
 import React, { useCallback, useContext, useState } from "react";
@@ -12,45 +13,42 @@ export default function LoginStatus() {
   });
   const [emailError, setEmailError] = useState(false);
   const [passWordError, setPassWordError] = useState(false);
-  const [loading, setLoading] = useState(false);
+  const { login, loading, error } = useLogin();
 
+  //TODO: add error message
   const handleLogin = useCallback(async () => {
-    setLoading(true);
-    goPage("/collection");
-    // if (inputAccount !== "" && inputPassword !== "") {
-    //   try {
-    //     const res = await loginAccount(inputAccount, inputPassword);
-    //     if (res.code === 200) {
-    //       if (res.data.data[0].role_vid === "123") {
-    //         goPage("/profile");
-    //       }
-    //       if (res.data.data[0].role_vid === "456") {
-    //         goPage("/owner");
-    //       }
-    //       if (res.data.data[0].role_vid === "789") {
-    //         goPage("/concierge");
-    //       } else goPage("/");
-    //       setLoading(false);
-    //       return;
-    //     } else if (res.code === 405) {
-    //       setPassWordError(true);
-    //       setLoading(false);
-    //       return;
-    //     } else {
-    //       setAccountError(true);
-    //       setPassWordError(true);
-    //       setLoading(false);
-    //     }
-    //   } catch (err) {
-    //     setAccountError(true);
-    //     setPassWordError(true);
-    //     setLoading(false);
-    //   }
-    // } else {
-    //   setAccountError(true);
-    //   setPassWordError(true);
-    //   setLoading(false);
-    // }
+    // goPage("/collection");
+    if (data.email !== "" && data.password !== "") {
+      try {
+        const res = await login(data.email, data.password);
+        console.log(res);
+        if (res.code === 200) {
+          goPage("/collection");
+          return;
+        }
+        // else if (res.code === 413) {
+        // toast.closeAll();
+        // toast({
+        //   title: "No wallet connect",
+        //   description: "Please connect your wallet",
+        //   status: "info",
+        //   duration: 9000,
+        //   isClosable: true,
+        // });
+        //   return;
+        // }
+        else {
+          setEmailError(true);
+          setPassWordError(true);
+        }
+      } catch (err) {
+        setEmailError(true);
+        setPassWordError(true);
+      }
+    } else {
+      setEmailError(true);
+      setPassWordError(true);
+    }
   }, [data]);
 
   return (
