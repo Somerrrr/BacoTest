@@ -11,7 +11,7 @@ export default async function handler(
 ) {
     console.log(JSON.stringify(req.cookies));
     try {
-        const {account, password} = req.body;
+        const {account, password, first_name, end_name, email} = req.body;
         if (account.length < 6 || password.length < 6) {
             res.status(HttpCode.OK).json({
                 code: HttpCode.ERROR_REGISTER_ACCOUNT_FORMAT_CODE,
@@ -36,9 +36,12 @@ export default async function handler(
             let new_view_id = Generator.viewIdGenerate();
             const userCreated = await prisma.baco_users.create({
                 data: {
-                    view_id:`${new_view_id}`,
-                    account: `${account}`,
-                    password: `${password}`,
+                    view_id: `${new_view_id}`,
+                    account: `${account.trim()}`,
+                    password: `${password.trim()}`,
+                    first_name: `${first_name.trim()}`,
+                    end_name: `${end_name.trim()}`,
+                    email: `${email.trim()}`,
                     status: StatusCode.NORMAL
                 }
             });

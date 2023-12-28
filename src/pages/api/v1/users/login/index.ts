@@ -22,7 +22,7 @@ export default async function handler(
         }
         const userAccount = await prisma.baco_users.findFirst({
             where: {
-                account: `${account}`,
+                account: `${account.trim()}`,
             }
         });
         //account doesn't exist
@@ -35,7 +35,7 @@ export default async function handler(
             return
         }
         //wrong passwords
-        if (userAccount.password !== `${password}`) {
+        if (userAccount.password !== `${password.trim()}`) {
             res.status(HttpCode.OK).json({
                 code: HttpCode.ERROR_LOGIN_PWD_CODE,
                 msg: HttpCode.ERROR_LOGIN_USER_OR_PWD_MSG,
@@ -54,7 +54,7 @@ export default async function handler(
         }
         //update users token
         let token = Generator.createTokenStr();
-        await prisma.s_user.update({
+        await prisma.baco_users.update({
             where: {
                 view_id: `${userAccount.view_id}`
             },

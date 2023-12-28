@@ -285,13 +285,16 @@ model b_utility_dynamic_history {
 
 model baco_users {
   id          BigInt    @id @default(autoincrement())
-  name        String    @default("") @db.VarChar(18)
+  first_name  String    @default("") @db.VarChar(18)
+  end_name    String    @default("") @db.VarChar(18)
   status      Int?      @default(1) @db.SmallInt
   create_time DateTime? @default(now()) @db.DateTime(0)
   update_time DateTime? @default(now()) @db.DateTime(0)
   account     String    @unique(map: "uniq_account") @default("") @db.VarChar(18)
   avatar      String    @default("") @db.VarChar(512)
+  email       String    @default("") @db.VarChar(128)
   password    String    @default("") @db.VarChar(18)
+  token       String    @default("") @db.VarChar(16)
   view_id     String    @unique(map: "uniq_view_id") @default("") @db.VarChar(18)
 }
 
