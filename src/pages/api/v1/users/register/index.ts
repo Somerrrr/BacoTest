@@ -3,6 +3,7 @@ import {prisma} from '../../../utils/db/db_browser';
 import "@/pages/api/utils/patch/bigint_patch";
 import HttpCode from "../../../utils/http_code";
 import StatusCode from "@/pages/api/utils/status_code";
+import Generator from "@/pages/api/utils/generation/generator";
 
 export default async function handler(
     req: NextApiRequest,
@@ -32,8 +33,10 @@ export default async function handler(
             });
             return;
         } else {
+            let new_view_id = Generator.viewIdGenerate();
             const userCreated = await prisma.baco_users.create({
                 data: {
+                    view_id:`${new_view_id}`,
                     account: `${account}`,
                     password: `${password}`,
                     status: StatusCode.NORMAL
