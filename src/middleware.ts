@@ -34,7 +34,7 @@ export async function middleware(request: NextRequest) {
         );
     } else {
         const {pathname} = request.nextUrl;
-        const res = await fetch('http://localhost:8098/api/middleware/auth_permission_roles', {
+        const res = await fetch('http://localhost:8098/api/middleware/auth', {
             method: 'post',
             body: JSON.stringify({uvid: uvid.value, path: pathname})
         });
