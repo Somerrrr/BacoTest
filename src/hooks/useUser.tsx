@@ -2,7 +2,7 @@ import { useCallback, useContext, useState } from "react";
 import axios from "axios";
 
 export default function useUser() {
-  const [loginStatus, setLoginStatus] = useState<any>();
+  const [userData, setUserData] = useState<any>();
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
   const usersURL = "/api/v1/users";
@@ -11,7 +11,8 @@ export default function useUser() {
     setLoading(true);
     try {
       const res = await axios.get(usersURL);
-      setLoginStatus(res.data);
+      setUserData(res.data);
+      console.log(res.data);
       return res.data;
     } catch (error: any) {
       setError(error);
@@ -25,7 +26,7 @@ export default function useUser() {
     setLoading(true);
     try {
       const res = await axios.get(`${usersURL}/${id}`);
-      setLoginStatus(res.data);
+      setUserData(res.data);
       return res.data;
     } catch (error: any) {
       setError(error);
@@ -53,7 +54,7 @@ export default function useUser() {
           avatar,
           status,
         });
-        setLoginStatus(res.data);
+        setUserData(res.data);
         return res.data;
       } catch (error: any) {
         setError(error);
@@ -65,5 +66,5 @@ export default function useUser() {
     [],
   );
 
-  return { getUser, loading, updateUser, getUsers, loginStatus, error };
+  return { getUser, loading, updateUser, getUsers, userData, error };
 }
