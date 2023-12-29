@@ -7,7 +7,10 @@ export default function useLogin() {
   const [loginStatus, setLoginStatus] = useState<any>();
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
-  const loginURL = "/api/v1/users/login";
+  const loginURL =
+    process.env.NODE_ENV === "development"
+      ? "/api/v1/users/login"
+      : "https://bako.soooul.xyz/api/v1/users/login";
 
   const login = useCallback(async (account: string, password: string) => {
     setLoading(true);

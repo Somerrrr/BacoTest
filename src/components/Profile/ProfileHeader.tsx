@@ -78,7 +78,7 @@ export default function ProfileHeader() {
         />
         <div
           className={`fixed bottom-0 left-0 z-50 h-[420px] w-full rounded-t-[32px] bg-bakoW p-4 pb-16 text-bakoB transition-all duration-300 ease-linear ${
-            showMenu ? "" : "translate-y-full "
+            showMenu ? "" : "translate-y-full"
           }`}
         >
           <div onClick={() => setShowMenu(false)}>
