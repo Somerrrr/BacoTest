@@ -1,5 +1,4 @@
 import ProfileHeader from "@/components/Profile/ProfileHeader";
-import useUser from "@/hooks/useUser";
 import axios from "axios";
 import { GetServerSidePropsContext } from "next";
 import React from "react";
@@ -8,17 +7,14 @@ interface Cookies {
 }
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   try {
-    // Fetch data from external API
     const cookies = context.req.headers.cookie;
     if (!cookies) return { props: { data: null } };
-
     const cookiesArray = cookies.split("; ");
     const cookiesData: Cookies = {};
     cookiesArray.forEach((cookie) => {
       const [key, value] = cookie.split("=");
       cookiesData[key] = value;
     });
-
     if (!cookiesData.uvid) return { props: { data: null } };
     if (process.env.NODE_ENV === "production") {
       const res = await axios.get(
