@@ -290,10 +290,10 @@ model baco_users {
   status      Int?      @default(1) @db.SmallInt
   create_time DateTime? @default(now()) @db.DateTime(0)
   update_time DateTime? @default(now()) @db.DateTime(0)
-  account     String    @unique(map: "uniq_account") @default("") @db.VarChar(18)
+  account     String    @unique(map: "uniq_account") @default("") @db.VarChar(128)
   avatar      String    @default("") @db.VarChar(512)
   email       String    @default("") @db.VarChar(128)
-  password    String    @default("") @db.VarChar(18)
+  password    String    @default("") @db.VarChar(32)
   token       String    @default("") @db.VarChar(16)
   view_id     String    @unique(map: "uniq_view_id") @default("") @db.VarChar(18)
 }
