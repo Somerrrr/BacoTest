@@ -5,7 +5,10 @@ export default function useUser() {
   const [userData, setUserData] = useState<any>();
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
-  const usersURL = "/api/v1/users";
+  const usersURL =
+    process.env.NODE_ENV === "development"
+      ? "/api/v1/users"
+      : "https://bako.soooul.xyz/api/v1/users";
 
   const getUsers = useCallback(async () => {
     setLoading(true);
