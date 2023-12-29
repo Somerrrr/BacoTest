@@ -17,29 +17,60 @@ export default function LoginStatus() {
 
   //TODO: add error message
   const handleLogin = useCallback(async () => {
-    // goPage("/collection");
     if (data.email !== "" && data.password !== "") {
       try {
         const res = await login(data.email, data.password);
-        console.log(res);
         if (res.code === 200) {
           goPage("/collection");
           return;
-        }
-        // else if (res.code === 413) {
-        // toast.closeAll();
-        // toast({
-        //   title: "No wallet connect",
-        //   description: "Please connect your wallet",
-        //   status: "info",
-        //   duration: 9000,
-        //   isClosable: true,
-        // });
-        //   return;
-        // }
-        else {
+        } else if (res.code === 405) {
+          // toast.closeAll();
+          // toast({
+          //   title: "Wrong password or email",
+          //   description: "Please check your password and email",
+          //   status: "error",
+          //   duration: 9000,
+          //   isClosable: true,
+          // });
           setEmailError(true);
           setPassWordError(true);
+          return;
+        } else if (res.code === 415) {
+          // toast.closeAll();
+          // toast({
+          //   title: "Format error",
+          //   description: "Please check your password and email",
+          //   status: "error",
+          //   duration: 9000,
+          //   isClosable: true,
+          // });
+          setEmailError(true);
+          setPassWordError(true);
+          return;
+        } else if (res.code === 413) {
+          // toast.closeAll();
+          // toast({
+          //   title: "User not found",
+          //   description: "Please check your password and email",
+          //   status: "info",
+          //   duration: 9000,
+          //   isClosable: true,
+          // });
+          setEmailError(true);
+          setPassWordError(true);
+          return;
+        } else if (res.code === 406) {
+          // toast.closeAll();
+          // toast({
+          //   title: "This account has been banned",
+          //   description: "",
+          //   status: "info",
+          //   duration: 9000,
+          //   isClosable: true,
+          // });
+          setEmailError(true);
+          setPassWordError(true);
+          return;
         }
       } catch (err) {
         setEmailError(true);

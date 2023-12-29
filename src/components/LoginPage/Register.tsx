@@ -23,7 +23,13 @@ export default function RegisterStatus({ setStatus }: any) {
   const handleRegister = useCallback(async () => {
     if (data.email !== "" && data.password !== "") {
       try {
-        const res = await register(data.email, data.password);
+        const res = await register(
+          data.email,
+          data.password,
+          data.first_name,
+          data.last_name,
+          data.email,
+        );
         console.log(res);
         if (res.code === 200) {
           setStatus(StatusType.LOGIN);
@@ -61,7 +67,7 @@ export default function RegisterStatus({ setStatus }: any) {
           onChange={(e: any) => {
             setData({ ...data, first_name: e.target.value });
           }}
-          //   error={}
+          //error={}
         />
         <InputBase
           placeholder="Last Name"
@@ -69,7 +75,7 @@ export default function RegisterStatus({ setStatus }: any) {
           onChange={(e: any) => {
             setData({ ...data, last_name: e.target.value });
           }}
-          //   error={}
+          //error={}
         />
         <InputBase
           placeholder="Email"
