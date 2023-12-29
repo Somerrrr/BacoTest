@@ -27,7 +27,7 @@ export default async function handler(
             });
             break;
         case "PUT":
-            const {first_name,end_name,email, avatar,status} = req.body;
+            const {first_name, end_name, email, account, avatar, password, status} = req.body;
             await prisma.baco_users.update({
                 where: {
                     view_id: `${vid}`,
@@ -37,6 +37,8 @@ export default async function handler(
                     end_name: `${end_name}`,
                     email: `${email}`,
                     avatar: `${avatar}`,
+                    account: `${account}`,
+                    password: `${password}`,
                     status: status
                 }
             }).then((value: any) => {
