@@ -27,14 +27,15 @@ export default async function handler(
             });
             break;
         case "PUT":
-            const {title, info, imgs, price, status} = req.body;
+            const {title, detail,specifications, imgs, price, status} = req.body;
             await prisma.baco_products.update({
                 where: {
                     view_id: `${vid}`,
                 },
                 data: {
                     title: `${title}`,
-                    info: `${info}`,
+                    detail: `${detail}`,
+                    specifications: `${specifications}`,
                     imgs: imgs,
                     price: price,
                     status: status,
