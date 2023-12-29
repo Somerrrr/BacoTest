@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import Image from "next/image";
 import logo from "@/assets/MLOGO_B.svg";
 import { LuMenu } from "react-icons/lu";
 import { RxCross2 } from "react-icons/rx";
 import { profilePath } from "@/constants/pathList";
+import { BacoContext } from "../BacoProvider";
 
 interface Props {
   goPage: (page: string) => void;
@@ -12,6 +13,7 @@ interface Props {
 
 export default function Mobile({ goPage, urlPath }: Props) {
   const [showMenu, setShowMenu] = useState(false);
+  const { clearAllCookies } = useContext(BacoContext);
 
   return (
     <header className="relative flex h-[72px] w-full items-center justify-between self-stretch border-b border-bakoB/20 bg-bakoW px-4 lg:hidden">
@@ -60,10 +62,18 @@ export default function Mobile({ goPage, urlPath }: Props) {
               className={`${
                 url === "/" ? "opacity-40" : ""
               } text-sm leading-[140%] tracking-[.84px]`}
-              onClick={() => {
-                goPage(url);
-                setShowMenu(false);
-              }}
+              onClick={
+                url === "/"
+                  ? () => {
+                      goPage(url);
+                      clearAllCookies();
+                      setShowMenu(false);
+                    }
+                  : () => {
+                      goPage(url);
+                      setShowMenu(false);
+                    }
+              }
             >
               {path}
             </a>

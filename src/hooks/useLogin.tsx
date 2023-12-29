@@ -1,7 +1,9 @@
 import { useCallback, useContext, useState } from "react";
 import axios from "axios";
+import { BacoContext } from "@/components/BacoProvider";
 
 export default function useLogin() {
+  const { getCookies } = useContext(BacoContext);
   const [loginStatus, setLoginStatus] = useState<any>();
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -15,6 +17,7 @@ export default function useLogin() {
         password: password,
       });
       setLoginStatus(res.data);
+      getCookies();
       return res.data;
     } catch (error: any) {
       setError(error);
