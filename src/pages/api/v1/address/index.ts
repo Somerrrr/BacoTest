@@ -27,15 +27,12 @@ export default async function handler(
             });
             break;
         case "POST":
-            const {imgs, info, title, price} = req.body;
+            const {address} = req.body;
             let new_view_id = Generator.viewIdGenerate();
-            await prisma.baco_products.create({
+            await prisma.baco_address.create({
                 data: {
                     view_id: new_view_id,
-                    imgs: `${imgs}`,
-                    info: `${info}`,
-                    title: `${title}`,
-                    price: price,
+                    address: `${address}`,
                     status: StatusCode.NORMAL,
                 }
             }).then((value: any) => {
