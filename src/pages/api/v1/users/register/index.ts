@@ -56,7 +56,7 @@ export default async function handler(
         res.status(HttpCode.OK).json({
             code: HttpCode.ERROR,
             msg: HttpCode.ERROR_MSG,
-            data: {api: "register", data: e.name}
+            data: {api: "register", data: e}
         });
     }
 }
