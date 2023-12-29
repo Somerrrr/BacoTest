@@ -27,14 +27,16 @@ export default async function handler(
             });
             break;
         case "POST":
-            const {avatar, name} = req.body;
+            const {first_name,end_name,email, avatar,status} = req.body;
             let new_view_id = Generator.viewIdGenerate();
             await prisma.baco_users.create({
                 data: {
                     view_id: new_view_id,
-                    name: `${name}`,
+                    first_name: `${first_name}`,
+                    end_name: `${end_name}`,
+                    email: `${email}`,
                     avatar: `${avatar}`,
-                    status: StatusCode.NORMAL,
+                    status: status,
                 }
             }).then((value:any) => {
                 res.status(HttpCode.OK).json({code: HttpCode.OK, msg: "success", data: {data: value}});
