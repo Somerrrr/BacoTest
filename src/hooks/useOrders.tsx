@@ -5,6 +5,7 @@ export default function useOrders() {
   const [data, setData] = useState<any>();
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState(false);
   const ordersURL =
     process.env.NODE_ENV === "development"
       ? "/api/v1/orders"
@@ -62,6 +63,7 @@ export default function useOrders() {
       user_vid: string,
       address_vid: string,
       product_vid: string,
+      status: number,
     ) => {
       setLoading(true);
       try {
@@ -69,8 +71,10 @@ export default function useOrders() {
           user_vid,
           address_vid,
           product_vid,
+          status,
         });
         setData(res.data);
+        setSuccess(true);
         return res.data;
       } catch (error: any) {
         setError(error);
@@ -91,6 +95,7 @@ export default function useOrders() {
           product_vid,
         });
         setData(res.data);
+        setSuccess(true);
         return res.data;
       } catch (error: any) {
         setError(error);
@@ -106,6 +111,7 @@ export default function useOrders() {
     loading,
     data,
     error,
+    success,
     getOrders,
     getOrder,
     getUserOrders,

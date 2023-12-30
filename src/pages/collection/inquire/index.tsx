@@ -34,13 +34,18 @@ export const getServerSideProps: GetServerSideProps<PageProps> = async (
 export default function Inquire({ uvid }: PageProps) {
   const router = useRouter();
   const { id } = router.query;
-  const [address_id, setAddress_id] = useState("");
-  const { createOrder } = useOrders();
+  const [address_id, setAddress_id] = useState("170396853870112498");
+  const { createOrder, loading, success } = useOrders();
   const [data, setData] = useState({
     country: "",
     city: "",
     street: "",
   });
+  useEffect(() => {
+    if (success) {
+      router.push("/profile/inquire");
+    }
+  }, [success]);
 
   return (
     <div className="flex h-full w-full flex-col items-center bg-bakoW p-32 leading-[140%]">
@@ -81,7 +86,7 @@ export default function Inquire({ uvid }: PageProps) {
           className="h-[60px] w-full rounded-full bg-bakoB font-bold uppercase leading-[140%] tracking-[6.4px] text-bakoW"
           onClick={() => createOrder(uvid, address_id, String(id))}
         >
-          get a quote
+          {loading ? <span className="loaderW" /> : "get a quote"}
         </button>
       </div>
     </div>

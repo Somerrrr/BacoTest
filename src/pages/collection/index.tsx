@@ -45,7 +45,8 @@ export default function Collection({ data }: any) {
         </div>
       </div>
       {/* <div className="flex w-full flex-wrap gap-x-[10px] gap-y-4 p-4 lg:gap-x-4 lg:gap-y-10 lg:px-14 lg:py-16">
-        {goodsArray.map((good, i) => (
+        {data &&
+          data?.map((good, i) => (
           <GoodRow key={i} data={good} />
         ))}
       </div> */}
