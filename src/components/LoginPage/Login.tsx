@@ -1,4 +1,5 @@
 import useLogin from "@/hooks/useLogin";
+import useUser from "@/hooks/useUser";
 import axios from "axios";
 import { useRouter } from "next/router";
 import React, { useCallback, useContext, useState } from "react";
@@ -14,32 +15,64 @@ export default function LoginStatus() {
   const [emailError, setEmailError] = useState(false);
   const [passWordError, setPassWordError] = useState(false);
   const { login, loading, error } = useLogin();
+  const { getUsers } = useUser();
 
   //TODO: add error message
   const handleLogin = useCallback(async () => {
-    // goPage("/collection");
     if (data.email !== "" && data.password !== "") {
       try {
         const res = await login(data.email, data.password);
-        console.log(res);
         if (res.code === 200) {
           goPage("/collection");
           return;
-        }
-        // else if (res.code === 413) {
-        // toast.closeAll();
-        // toast({
-        //   title: "No wallet connect",
-        //   description: "Please connect your wallet",
-        //   status: "info",
-        //   duration: 9000,
-        //   isClosable: true,
-        // });
-        //   return;
-        // }
-        else {
+        } else if (res.code === 405) {
+          // toast.closeAll();
+          // toast({
+          //   title: "Wrong password or email",
+          //   description: "Please check your password and email",
+          //   status: "error",
+          //   duration: 9000,
+          //   isClosable: true,
+          // });
           setEmailError(true);
           setPassWordError(true);
+          return;
+        } else if (res.code === 415) {
+          // toast.closeAll();
+          // toast({
+          //   title: "Format error",
+          //   description: "Please check your password and email",
+          //   status: "error",
+          //   duration: 9000,
+          //   isClosable: true,
+          // });
+          setEmailError(true);
+          setPassWordError(true);
+          return;
+        } else if (res.code === 413) {
+          // toast.closeAll();
+          // toast({
+          //   title: "User not found",
+          //   description: "Please check your password and email",
+          //   status: "info",
+          //   duration: 9000,
+          //   isClosable: true,
+          // });
+          setEmailError(true);
+          setPassWordError(true);
+          return;
+        } else if (res.code === 406) {
+          // toast.closeAll();
+          // toast({
+          //   title: "This account has been banned",
+          //   description: "",
+          //   status: "info",
+          //   duration: 9000,
+          //   isClosable: true,
+          // });
+          setEmailError(true);
+          setPassWordError(true);
+          return;
         }
       } catch (err) {
         setEmailError(true);
@@ -54,7 +87,10 @@ export default function LoginStatus() {
   return (
     <>
       <div className="mb-16 space-y-6 text-center lg:mt-[128px]">
-        <a className="text-2xl font-bold uppercase leading-normal tracking-[9.6px] text-bakoW">
+        <a
+          className="text-2xl font-bold uppercase leading-normal tracking-[9.6px] text-bakoW"
+          onClick={() => getUsers()}
+        >
           Login
         </a>
         <div className="text-xs font-extralight">

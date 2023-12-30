@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import LoginStatus from "@/components/LoginPage/Login";
 import RegisterStatus from "@/components/LoginPage/Register";
 import { BsDot } from "react-icons/bs";

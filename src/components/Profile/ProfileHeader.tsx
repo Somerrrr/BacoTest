@@ -1,10 +1,12 @@
 import { profilePath, profilePathMobile } from "@/constants/pathList";
 import { useRouter } from "next/router";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { MdOutlineKeyboardArrowDown } from "react-icons/md";
 import { RxCross2 } from "react-icons/rx";
+import { BacoContext } from "../BacoProvider";
 
 export default function ProfileHeader() {
+  const { clearAllCookies } = useContext(BacoContext);
   const router = useRouter();
   const goPage = (page: any) => {
     router.push(page);
@@ -45,7 +47,14 @@ export default function ProfileHeader() {
             className={`cursor-pointer text-base leading-[140%] ${
               router.pathname === url ? "underline underline-offset-2" : ""
             } hover:underline hover:underline-offset-2`}
-            onClick={() => goPage(url)}
+            onClick={
+              url === "/"
+                ? () => {
+                    clearAllCookies();
+                    goPage(url);
+                  }
+                : () => goPage(url)
+            }
           >
             {path}
           </a>

@@ -58,6 +58,7 @@ const DynamicPage = ({ StaticData }: Props) => {
       .toLowerCase()
       .replace(/(?:^|\s)\S/g, (a) => a.toUpperCase());
   };
+
   // const getImages = async () => {
   //   try {
   //     const res = await imgur.get("https://api.imgur.com/3/image/ZRxpnLr");
