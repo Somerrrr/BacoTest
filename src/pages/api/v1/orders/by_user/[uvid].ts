@@ -12,11 +12,10 @@ export default async function handler(
     const {uvid} = req.query;
     switch (method) {
         case "GET":
+            const {status} = req.body;
             await prisma.baco_orders.findMany({
                     where: {
-                        status: {
-                            not: 0
-                        },
+                        status: status,
                         user_vid: `${uvid}`
                     }
                 }
