@@ -1,7 +1,4 @@
 import useLogin from "@/hooks/useLogin";
-import useUser from "@/hooks/useUser";
-import axios from "axios";
-import { useRouter } from "next/router";
 import React, { useCallback, useContext, useState } from "react";
 import { BacoContext } from "../BacoProvider";
 import InputBase from "../Input/InputBase";
@@ -15,7 +12,6 @@ export default function LoginStatus() {
   const [emailError, setEmailError] = useState(false);
   const [passWordError, setPassWordError] = useState(false);
   const { login, loading, error } = useLogin();
-  const { getUsers } = useUser();
 
   //TODO: add error message
   const handleLogin = useCallback(async () => {
@@ -87,10 +83,7 @@ export default function LoginStatus() {
   return (
     <>
       <div className="mb-16 space-y-6 text-center lg:mt-[128px]">
-        <a
-          className="text-2xl font-bold uppercase leading-normal tracking-[9.6px] text-bakoW"
-          onClick={() => getUsers()}
-        >
+        <a className="text-2xl font-bold uppercase leading-normal tracking-[9.6px] text-bakoW">
           Login
         </a>
         <div className="text-xs font-extralight">
