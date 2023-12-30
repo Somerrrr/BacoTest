@@ -8,7 +8,6 @@ interface Cookies {
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   try {
     const cookies = context.req.headers.cookie;
-    console.log("getServerSideProps:cookies", cookies);
     if (!cookies) return { props: { data: null } };
     const cookiesArray = cookies.split("; ");
     const cookiesData: Cookies = {};
@@ -17,12 +16,10 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
       cookiesData[key] = value;
     });
     if (!cookiesData.uvid) return { props: { data: null } };
-    console.log("getServerSideProps", process.env.NODE_ENV);
     if (process.env.NODE_ENV === "production") {
       const res = await axios.get(
         `https://bako.soooul.xyz/api/v1/users/${cookiesData.uvid}`,
       );
-      console.log("production", res.data);
       const data = res.data;
       return { props: { data } };
     } else {
@@ -38,6 +35,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   }
 }
 export default function Profile({ data }: any) {
+  console.log(data);
   return (
     <div className="flex flex-col items-center bg-bakoW">
       <ProfileHeader />
