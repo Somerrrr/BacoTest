@@ -1,5 +1,3 @@
-import GoodRow from "@/components/Goods/GoodRow";
-import axios from "axios";
 import React, { useEffect, useRef, useState } from "react";
 
 export default function About() {

@@ -2,16 +2,20 @@ import { useCallback, useContext, useState } from "react";
 import axios from "axios";
 
 export default function useProducts() {
-  const [loginStatus, setLoginStatus] = useState<any>();
+  const [data, setData] = useState<any>();
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
-  const productsURL = "/api/v1/products";
+  const productsURL =
+    process.env.NODE_ENV === "development"
+      ? "/api/v1/products"
+      : "https://bako.soooul.xyz/api/v1/products";
 
-  const getUsers = useCallback(async () => {
+  const getProducts = useCallback(async () => {
     setLoading(true);
     try {
       const res = await axios.get(productsURL);
-      setLoginStatus(res.data);
+      setData(res.data);
+      console.log("getProducts", res.data.data.data);
       return res.data;
     } catch (error: any) {
       setError(error);
@@ -21,11 +25,11 @@ export default function useProducts() {
     }
   }, []);
 
-  const getUser = useCallback(async (id: string) => {
+  const getProduct = useCallback(async (id: string) => {
     setLoading(true);
     try {
       const res = await axios.get(`${productsURL}/${id}`);
-      setLoginStatus(res.data);
+      setData(res.data);
       return res.data;
     } catch (error: any) {
       setError(error);
@@ -34,26 +38,55 @@ export default function useProducts() {
       setLoading(false);
     }
   }, []);
-
-  const updateUser = useCallback(
+  const updateProduct = useCallback(
     async (
       id: string,
-      first_name: string,
-      end_name: string,
-      email: string,
-      avatar: string,
+      title: string,
+      detail: string,
+      specifications: string,
+      imgs: string,
+      price: number,
       status: number,
     ) => {
       setLoading(true);
       try {
         const res = await axios.put(`${productsURL}/${id}`, {
-          first_name,
-          end_name,
-          email,
-          avatar,
+          imgs,
+          specifications,
+          detail,
+          title,
+          price,
           status,
         });
-        setLoginStatus(res.data);
+        setData(res.data);
+        return res.data;
+      } catch (error: any) {
+        setError(error);
+        console.log(error);
+      } finally {
+        setLoading(false);
+      }
+    },
+    [],
+  );
+  const createProduct = useCallback(
+    async (
+      title: string,
+      detail: string,
+      specifications: string,
+      imgs: string,
+      price: number,
+    ) => {
+      setLoading(true);
+      try {
+        const res = await axios.post(productsURL, {
+          imgs,
+          specifications,
+          detail,
+          title,
+          price,
+        });
+        setData(res.data);
         return res.data;
       } catch (error: any) {
         setError(error);
@@ -65,5 +98,13 @@ export default function useProducts() {
     [],
   );
 
-  return { getUser, loading, updateUser, getUsers, loginStatus, error };
+  return {
+    getProducts,
+    getProduct,
+    updateProduct,
+    createProduct,
+    data,
+    error,
+    loading,
+  };
 }

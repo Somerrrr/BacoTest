@@ -34,6 +34,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     return { props: { data: null, error: "Failed to fetch data" } };
   }
 }
+
 export default function Profile({ data }: any) {
   return (
     <div className="flex flex-col items-center bg-bakoW">

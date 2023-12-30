@@ -1,9 +1,42 @@
 import OrderRow from "@/components/Orders/OrderRow";
 import OrderRowM from "@/components/Orders/OrderRowM";
 import ProfileHeader from "@/components/Profile/ProfileHeader";
+import axios from "axios";
+import { GetServerSidePropsContext } from "next";
 import React, { useEffect, useRef, useState } from "react";
 const COLUMN_WIDTHS = ["14%", "42%", "14%", "14%", "14%"];
-
+interface Cookies {
+  [key: string]: string;
+}
+export async function getServerSideProps(context: GetServerSidePropsContext) {
+  try {
+    const cookies = context.req.headers.cookie;
+    if (!cookies) return { props: { data: null } };
+    const cookiesArray = cookies.split("; ");
+    const cookiesData: Cookies = {};
+    cookiesArray.forEach((cookie) => {
+      const [key, value] = cookie.split("=");
+      cookiesData[key] = value;
+    });
+    if (!cookiesData.uvid) return { props: { data: null } };
+    if (process.env.NODE_ENV === "production") {
+      const res = await axios.get(
+        `https://bako.soooul.xyz/api/v1/users/${cookiesData.uvid}`,
+      );
+      const data = res.data.data.data;
+      return { props: { data } };
+    } else {
+      const res = await axios.get(
+        `http://localhost:8098/api/v1/users/${cookiesData.uvid}`,
+      );
+      const data = res.data.data.data;
+      return { props: { data } };
+    }
+  } catch (error) {
+    console.error("Error fetching data:", error);
+    return { props: { data: null, error: "Failed to fetch data" } };
+  }
+}
 export default function Orders() {
   const [showDetail, setShowDetail] = useState(false);
   const orderRows = ["Date", "Item", "Total", "Address", "Actions"];

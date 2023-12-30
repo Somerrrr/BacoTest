@@ -1,27 +1,41 @@
 import GoodRow from "@/components/Goods/GoodRow";
 import InputBase from "@/components/Input/InputBase";
 import InputBlack from "@/components/Input/InputBlack";
-import { goods } from "@/constants/Mock";
+import useOrders from "@/hooks/useOrders";
+// import { goods } from "@/constants/Mock";
 import axios from "axios";
+import { GetServerSideProps, GetServerSidePropsContext } from "next";
 import { useRouter } from "next/router";
 import React, { useEffect, useRef, useState } from "react";
-import { MdOutlineKeyboardArrowDown } from "react-icons/md";
-const breakpoints = {
-  sm: "640px",
-  md: "768px",
-  lg: "1024px",
-  xl: "1280px",
-  "2xl": "1536px",
+import cookie from "cookie";
+interface PageProps {
+  uvid: string;
+}
+export const getServerSideProps: GetServerSideProps<PageProps> = async (
+  context: GetServerSidePropsContext,
+) => {
+  if (!context.req.headers.cookie) {
+    return {
+      redirect: {
+        destination: "/",
+        permanent: false,
+      },
+    };
+  }
+  const parsedCookies = cookie.parse(context.req.headers.cookie || "");
+  const uvid = parsedCookies.uvid;
+  return {
+    props: {
+      uvid,
+    },
+  };
 };
-export default function Inquire() {
+
+export default function Inquire({ uvid }: PageProps) {
   const router = useRouter();
-  //   const navigateToPurchase = () => {
-  //     const encodedData = encodeURIComponent(JSON.stringify(orderInput));
-  //     router.push({
-  //       pathname: "/purchase",
-  //       query: { data: encodedData }, // 使用 encodeURIComponent 进行编码
-  //     });
-  //   };
+  const { id } = router.query;
+  const [address_id, setAddress_id] = useState("");
+  const { createOrder } = useOrders();
   const [data, setData] = useState({
     country: "",
     city: "",
@@ -65,7 +79,7 @@ export default function Inquire() {
         </div>
         <button
           className="h-[60px] w-full rounded-full bg-bakoB font-bold uppercase leading-[140%] tracking-[6.4px] text-bakoW"
-          //   onClick={() => goPage("/collection/inquire")}
+          onClick={() => createOrder(uvid, address_id, String(id))}
         >
           get a quote
         </button>

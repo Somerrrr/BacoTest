@@ -15,7 +15,6 @@ export default function useUser() {
     try {
       const res = await axios.get(usersURL);
       setUserData(res.data);
-      console.log(res.data);
       return res.data;
     } catch (error: any) {
       setError(error);
