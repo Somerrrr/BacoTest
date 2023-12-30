@@ -20,7 +20,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
       const res = await axios.get(
         `https://bako.soooul.xyz/api/v1/users/${cookiesData.uvid}`,
       );
-      const data = res.data;
+      const data = res.data.data.data;
       return { props: { data } };
     } else {
       const res = await axios.get(
@@ -35,7 +35,6 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   }
 }
 export default function Profile({ data }: any) {
-  console.log(data);
   return (
     <div className="flex flex-col items-center bg-bakoW">
       <ProfileHeader />
