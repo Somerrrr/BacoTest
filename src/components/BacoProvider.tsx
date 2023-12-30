@@ -27,7 +27,6 @@ export const BacoProvider = ({ children }: { children: any }) => {
       const [key, value] = cookie.split("=");
       cookies[key] = value;
     });
-    console.log(cookies);
     if (cookies.uvid) {
       setUserVid(cookies.uvid);
     }
